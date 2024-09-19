@@ -1,4 +1,4 @@
-package com.stylo.store.stylo_store_backend;
+package com.stylo.store;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

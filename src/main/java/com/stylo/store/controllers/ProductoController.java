@@ -3,9 +3,11 @@ package com.stylo.store.controllers;
 import com.stylo.store.models.Producto;
 import com.stylo.store.services.ProductoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/productos")
@@ -14,36 +16,46 @@ public class ProductoController {
     @Autowired
     private ProductoService productoService;
 
+    // Obtener todos los productos
     @GetMapping
-    public List<Producto> listar() {
-        return productoService.obtenerTodos();
+    public List<Producto> getAllProductos() {
+        return productoService.getAllActiveProductos();
     }
 
+    // Obtener un producto por ID
     @GetMapping("/{id}")
-    public Producto obtener(@PathVariable Long id) {
-        return productoService.obtenerPorId(id);
+    public ResponseEntity<Producto> getProductoById(@PathVariable Long id) {
+        Optional<Producto> producto = productoService.getProductoById(id);
+        return producto.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
+    // Crear un nuevo producto
     @PostMapping
-    public Producto crear(@RequestBody Producto producto) {
-        return productoService.guardar(producto);
+    public Producto createProducto(@RequestBody Producto producto) {
+        return productoService.saveProducto(producto);
     }
 
+    // Actualizar un producto existente
     @PutMapping("/{id}")
-    public Producto actualizar(@PathVariable Long id, @RequestBody Producto producto) {
-        Producto productoExistente = productoService.obtenerPorId(id);
-        if (productoExistente != null) {
-            productoExistente.setNombre(producto.getNombre());
-            productoExistente.setDescripcion(producto.getDescripcion());
-            productoExistente.setPrecio(producto.getPrecio());
-            return productoService.guardar(productoExistente);
+    public ResponseEntity<Producto> updateProducto(@PathVariable Long id, @RequestBody Producto productoDetails) {
+        Optional<Producto> producto = productoService.getProductoById(id);
+        if (producto.isPresent()) {
+            Producto updatedProducto = producto.get();
+            updatedProducto.setNombre(productoDetails.getNombre());
+            updatedProducto.setDescripcion(productoDetails.getDescripcion());
+            updatedProducto.setFechaCreacion(productoDetails.getFechaCreacion());
+            updatedProducto.setEstaActivo(productoDetails.isEstaActivo());
+            return ResponseEntity.ok(productoService.saveProducto(updatedProducto));
         } else {
-            return null;
+            return ResponseEntity.notFound().build();
         }
     }
 
-    @DeleteMapping("/{id}")
-    public void eliminar(@PathVariable Long id) {
-        productoService.eliminar(id);
+    // Desactivar un producto (soft delete)
+    @PatchMapping("/{id}")
+    public ResponseEntity<Void> deactivateProducto(@PathVariable Long id) {
+        productoService.toggleProductoStatus(id);
+        return ResponseEntity.noContent().build();
     }
+    
 }
