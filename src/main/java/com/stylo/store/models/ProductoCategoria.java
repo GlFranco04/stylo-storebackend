@@ -13,7 +13,6 @@ import jakarta.persistence.Table;
 
 
 @Entity
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Table(name = "producto_categoria")
 public class ProductoCategoria {
 
@@ -22,9 +21,9 @@ public class ProductoCategoria {
     private Long id;
 
     // Bidireccional con Producto
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "producto_id")
-    @JsonIgnoreProperties("categorias")
+    @JsonIgnoreProperties("productoCategorias")
     private Producto producto;
 
     // Bidireccional con Categoria

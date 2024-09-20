@@ -17,7 +17,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "categoria")
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"}) // si no coloco esto al añadir un productocategoria cualquier metodo que haga menos el post a la entidad productocategoria me sale 505 internal error, solamente hay que ponerle a la entidad Categoria
 public class Categoria {
 
     @Id

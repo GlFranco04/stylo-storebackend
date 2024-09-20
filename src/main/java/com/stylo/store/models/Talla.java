@@ -2,7 +2,6 @@ package com.stylo.store.models;
 
 import java.util.Set;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -16,7 +15,6 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "talla")
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Talla {
 
     @Id

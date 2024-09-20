@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/categorias")
+@RequestMapping("/api/categoria")
 public class CategoriaController {
 
     @Autowired
@@ -19,7 +19,7 @@ public class CategoriaController {
     // Obtener todas las categorías
     @GetMapping
     public List<Categoria> getAllCategorias() {
-        return categoriaService.getAllCategorias();
+        return categoriaService.getAllActiveCategorias();
     }
 
     // Obtener una categoría por ID

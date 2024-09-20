@@ -8,8 +8,13 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
 @Entity
+// tomar en cuenta que aquí no hay @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+// solo está en la entidad "padre" o "Producto"
+// por si acaso, ya no sé dónde es necesario poner eso, siempre que salga internal error puede ser una solución, hasta mientras no poner en ningun lado a no ser que sea necesario
+@Table(name = "detalle_producto")
 public class DetalleProducto {
 
     @Id

@@ -15,8 +15,8 @@ public class CategoriaService {
     private CategoriaRepository categoriaRepository;
 
     // Obtener todas las categorías activas
-    public List<Categoria> getAllCategorias() {
-        return categoriaRepository.findAll();
+    public List<Categoria> getAllActiveCategorias() {
+        return categoriaRepository.findByEstaActivo(true);
     }
 
     // Obtener una categoría por ID

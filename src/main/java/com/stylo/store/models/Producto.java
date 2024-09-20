@@ -3,7 +3,6 @@ package com.stylo.store.models;
 import java.util.Date;
 import java.util.Set;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -17,7 +16,6 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "producto")
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Producto {
 
     @Id
@@ -36,12 +34,12 @@ public class Producto {
     @Column(name = "esta_activo")
     private boolean estaActivo;
 
-    // Relación con DetalleProducto
+    // Relación con Producto con DetalleProducto de 1 a n
     @OneToMany(mappedBy = "producto", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonIgnore // Esto evitará que se serialicen los detalles del producto cuando se haga un GET
     private Set<DetalleProducto> detallesProducto;
 
-    // Relación con ProductoCategoria
+    // Relación con Producto con ProductoCategoria de 1 a n
     @OneToMany(mappedBy = "producto", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonIgnore // Esto también evita que se serialicen las categorías del producto
     private Set<ProductoCategoria> productoCategorias;
