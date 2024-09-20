@@ -1,8 +1,19 @@
 package com.stylo.store.models;
 
-import jakarta.persistence.*;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+
 
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Table(name = "producto_categoria")
 public class ProductoCategoria {
 
@@ -10,24 +21,20 @@ public class ProductoCategoria {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "categoria_id", nullable = false)
-    private Categoria categoria;
-
-    @ManyToOne
-    @JoinColumn(name = "producto_id", nullable = false)
+    // Bidireccional con Producto
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "producto_id")
+    @JsonIgnoreProperties("categorias")
     private Producto producto;
 
-    // Constructor vacío
-    public ProductoCategoria() {}
-
-    // Constructor con parámetros
-    public ProductoCategoria(Categoria categoria, Producto producto) {
-        this.categoria = categoria;
-        this.producto = producto;
-    }
+    // Bidireccional con Categoria
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "categoria_id")
+    @JsonIgnoreProperties("productosCategoria")
+    private Categoria categoria;
 
     // Getters y Setters
+
     public Long getId() {
         return id;
     }
@@ -36,19 +43,19 @@ public class ProductoCategoria {
         this.id = id;
     }
 
-    public Categoria getCategoria() {
-        return categoria;
-    }
-
-    public void setCategoria(Categoria categoria) {
-        this.categoria = categoria;
-    }
-
     public Producto getProducto() {
         return producto;
     }
 
     public void setProducto(Producto producto) {
         this.producto = producto;
+    }
+
+    public Categoria getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
     }
 }

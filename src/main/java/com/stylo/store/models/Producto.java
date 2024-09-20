@@ -1,57 +1,52 @@
 package com.stylo.store.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 
-import java.time.LocalDate;
+import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 @Entity
-@Table(name = "producto") // Define el nombre de la tabla en la BD
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "categorias"})
+@Table(name = "producto")
 public class Producto {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // Generar ID automáticamente
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, length = 100)
     private String nombre;
 
-    @Column(nullable = false, length = 500)
     private String descripcion;
 
-    @Column(name = "fecha_creacion")
-    private LocalDate fechaCreacion;
+    @Temporal(TemporalType.DATE)
+    private Date fechaCreacion;
 
-    @Column(name = "esta_activo")
     private boolean estaActivo;
 
-    // // Relación con DetalleProducto (OneToMany)
-    // @JsonManagedReference
-    // @OneToMany(mappedBy = "producto", cascade = CascadeType.ALL, orphanRemoval = true)
-    // private Set<DetalleProducto> detalleProductos;
+    // Bidireccional con DetalleProducto
+    @OneToMany(mappedBy = "producto", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnoreProperties("producto")
+    private Set<DetalleProducto> detallesProducto = new HashSet<>();
 
-    // Constructor vacío para JPA
-    public Producto() {}
-
-    // Constructor con todos los parámetros
-    public Producto(String nombre, String descripcion, LocalDate fechaCreacion, boolean estaActivo) {
-        this.nombre = nombre;
-        this.descripcion = descripcion;
-        this.fechaCreacion = fechaCreacion;
-        this.estaActivo = estaActivo;
-    }
+    // Bidireccional con ProductoCategoria
+    @OneToMany(mappedBy = "producto", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnoreProperties("producto")
+    private Set<ProductoCategoria> categorias = new HashSet<>();
 
     // Getters y Setters
+
     public Long getId() {
         return id;
     }
@@ -76,11 +71,11 @@ public class Producto {
         this.descripcion = descripcion;
     }
 
-    public LocalDate getFechaCreacion() {
+    public Date getFechaCreacion() {
         return fechaCreacion;
     }
 
-    public void setFechaCreacion(LocalDate fechaCreacion) {
+    public void setFechaCreacion(Date fechaCreacion) {
         this.fechaCreacion = fechaCreacion;
     }
 
@@ -92,11 +87,19 @@ public class Producto {
         this.estaActivo = estaActivo;
     }
 
-    // public Set<DetalleProducto> getDetalleProductos() {
-    //     return detalleProductos;
-    // }
+    public Set<DetalleProducto> getDetallesProducto() {
+        return detallesProducto;
+    }
 
-    // public void setDetalleProductos(Set<DetalleProducto> detalleProductos) {
-    //     this.detalleProductos = detalleProductos;
-    // }
+    public void setDetallesProducto(Set<DetalleProducto> detallesProducto) {
+        this.detallesProducto = detallesProducto;
+    }
+
+    public Set<ProductoCategoria> getCategorias() {
+        return categorias;
+    }
+
+    public void setCategorias(Set<ProductoCategoria> categorias) {
+        this.categorias = categorias;
+    }
 }

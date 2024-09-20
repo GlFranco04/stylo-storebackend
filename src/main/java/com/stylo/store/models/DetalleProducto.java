@@ -1,41 +1,35 @@
 package com.stylo.store.models;
 
-// import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "detalle_productos")
 public class DetalleProducto {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
     private String color;
+    private double precio;
 
-    @Column(nullable = false)
-    private Double precio;
-
+    // Relación ManyToOne con Producto, ignoramos la lista de DetalleProducto en Producto para evitar ciclo
     @ManyToOne
-    // @JsonBackReference //fijarse que pasa al quitarlo
-    @JoinColumn(name = "producto_id", nullable = false)
+    @JoinColumn(name = "producto_id")
+    @JsonIgnoreProperties("detallesProducto")
     private Producto producto;
 
+    // Relación ManyToOne con Talla, ignoramos la lista de DetalleProducto en Talla para evitar ciclo
     @ManyToOne
-    // @JsonBackReference //fijarse que pasa al quitarlo
-    @JoinColumn(name = "talla_id", nullable = false)
+    @JoinColumn(name = "talla_id")
+    @JsonIgnoreProperties("detallesProducto")
     private Talla talla;
-
-    // El campo foto ha sido eliminado
 
     // Getters y Setters
     public Long getId() {
@@ -54,11 +48,11 @@ public class DetalleProducto {
         this.color = color;
     }
 
-    public Double getPrecio() {
+    public double getPrecio() {
         return precio;
     }
 
-    public void setPrecio(Double precio) {
+    public void setPrecio(double precio) {
         this.precio = precio;
     }
 

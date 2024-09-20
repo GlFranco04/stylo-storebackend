@@ -1,36 +1,41 @@
 package com.stylo.store.models;
 
-import jakarta.persistence.*;
-import java.util.List;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
-@Table(name = "categorias")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "productos"})
+@Table(name = "categoria")
 public class Categoria {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
     private String nombre;
 
-    @Column
     private String descripcion;
 
-    @Column(nullable = false)
-    private boolean estaActivo = true;  // Control de eliminación lógica
+    private boolean estaActivo;
 
-    // Constructor vacío
-    public Categoria() {}
-
-    // Constructor con parámetros
-    public Categoria(String nombre, String descripcion, boolean estaActivo) {
-        this.nombre = nombre;
-        this.descripcion = descripcion;
-        this.estaActivo = estaActivo;
-    }
+    // Bidireccional con ProductoCategoria
+    @OneToMany(mappedBy = "categoria", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnoreProperties("categoria")
+    private Set<ProductoCategoria> productosCategoria = new HashSet<>();
 
     // Getters y Setters
+
     public Long getId() {
         return id;
     }
@@ -61,5 +66,13 @@ public class Categoria {
 
     public void setEstaActivo(boolean estaActivo) {
         this.estaActivo = estaActivo;
+    }
+
+    public Set<ProductoCategoria> getProductosCategoria() {
+        return productosCategoria;
+    }
+
+    public void setProductosCategoria(Set<ProductoCategoria> productosCategoria) {
+        this.productosCategoria = productosCategoria;
     }
 }
