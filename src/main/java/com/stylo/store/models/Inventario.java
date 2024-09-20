@@ -24,7 +24,7 @@ public class Inventario {
   // Relacion Inventario con Almacen n a 1
   @ManyToOne
   @JoinColumn(name = "almacen_id")
-  @JsonIgnoreProperties("inventarios")
+  @JsonIgnoreProperties({"inventarios","sucursal"})
   private Almacen almacen;
 
   // getters and setters

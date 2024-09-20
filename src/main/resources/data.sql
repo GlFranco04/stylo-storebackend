@@ -14,3 +14,12 @@ INSERT INTO detalle_producto (color, precio, producto_id, talla_id) VALUES ('Roj
 
 INSERT INTO producto_categoria (producto_id, categoria_id) VALUES (1, 1);
 INSERT INTO producto_categoria (producto_id, categoria_id) VALUES (1, 2);
+
+INSERT INTO sucursal (nombre, esta_activo) VALUES ('Sucursal 1', true);
+INSERT INTO sucursal (nombre, esta_activo) VALUES ('Sucursal 2', true);
+INSERT INTO sucursal (nombre, esta_activo) VALUES ('Sucursal 3', true);
+
+INSERT INTO ALMACEN (nombre, sucursal_id) VALUES ('Almacen 1', 1);
+INSERT INTO ALMACEN (nombre, sucursal_id) VALUES ('Almacen 2', 1);
+INSERT INTO ALMACEN (nombre, sucursal_id) VALUES ('Almacen 3', 2);
+INSERT INTO ALMACEN (nombre, sucursal_id) VALUES ('Almacen 4', 3);
