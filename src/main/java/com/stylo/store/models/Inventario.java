@@ -1,10 +1,14 @@
 package com.stylo.store.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -16,6 +20,12 @@ public class Inventario {
 
   @Column(name = "inventario_disponible")
   private Long inventarioDisponible;
+
+  // Relacion Inventario con Almacen n a 1
+  @ManyToOne
+  @JoinColumn(name = "almacen_id")
+  @JsonIgnoreProperties("inventarios")
+  private Almacen almacen;
 
   // getters and setters
   public Long getId() {
@@ -30,6 +40,14 @@ public class Inventario {
   }
   public void setInventarioDisponible(Long inventarioDisponible){
     this.inventarioDisponible = inventarioDisponible;
+  }
+
+  public Almacen getAlmacen(){
+    return almacen;
+  }
+
+  public void setAlmacen(Almacen almacen){
+    this.almacen = almacen;
   }
 
 }
