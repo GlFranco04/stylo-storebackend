@@ -27,6 +27,12 @@ public class Inventario {
   @JsonIgnoreProperties({"inventarios","sucursal"})
   private Almacen almacen;
 
+  // Relacion Inventario con DetalleProducto n a 1
+  @ManyToOne
+  @JoinColumn(name = "destalle_producto_id")
+  @JsonIgnoreProperties({"inventario","producto","talla"})
+  private DetalleProducto detalleProducto;
+
   // getters and setters
   public Long getId() {
     return id;
@@ -48,6 +54,14 @@ public class Inventario {
 
   public void setAlmacen(Almacen almacen){
     this.almacen = almacen;
+  }
+
+  public DetalleProducto getDetalleProducto(){
+    return detalleProducto;
+  }
+
+  public void setDetalleProducto(DetalleProducto detalleProducto){
+    this.detalleProducto = detalleProducto;
   }
 
 }
