@@ -1,10 +1,17 @@
 package com.stylo.store.models;
 
+import java.util.Set;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -19,6 +26,11 @@ public class Sucursal {
 
   @Column(name = "esta_activo")
   private boolean estaActivo;
+
+  // Relacion Sucursal con Almacen 1 a n
+  @OneToMany(mappedBy = "sucursal", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  @JsonIgnore
+  private Set<Almacen> almacenes;
 
   //Contructor por defecto
   public Sucursal() {}
@@ -46,6 +58,13 @@ public class Sucursal {
   }
   public void setEstaActivo(boolean estaActivo) {
     this.estaActivo = estaActivo;
+  }
+
+  public Set<Almacen> getAlmacenes(){
+    return almacenes;
+  }
+  public void setAlmacenes(Set<Almacen> almacenes){
+    this.almacenes = almacenes;
   }
 
 }

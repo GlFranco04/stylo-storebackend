@@ -1,10 +1,14 @@
 package com.stylo.store.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -17,6 +21,12 @@ public class Almacen {
 
   @Column(name = "nombre")
   private String nombre;
+
+  // Relacion Almacen con Sucursal n a 1
+  @ManyToOne
+  @JoinColumn(name = "sucursal_id")
+  @JsonIgnoreProperties("almacenes")
+  private Sucursal sucursal;
 
   //Constructor por defecto
   public Almacen() {
@@ -39,6 +49,14 @@ public class Almacen {
   }
   public void setNombre(String nombre) {
     this.nombre = nombre;
+  }
+
+  public Sucursal getSucursal(){
+    return sucursal;
+  }
+
+  public void setSucursal(Sucursal sucursal){
+    this.sucursal = sucursal;
   }
 
 }
