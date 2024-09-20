@@ -1,8 +1,12 @@
 package com.stylo.store.models;
 
+import java.util.Date;
+import java.util.Set;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -10,43 +14,51 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
-
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "categorias"})
 @Table(name = "producto")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Producto {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "nombre")
     private String nombre;
 
+    @Column(name = "descripcion")
     private String descripcion;
 
-    @Temporal(TemporalType.DATE)
+    @Column(name = "fechaCreacion")
     private Date fechaCreacion;
 
+    @Column(name = "esta_activo")
     private boolean estaActivo;
 
-    // Bidireccional con DetalleProducto
+    // Relación con DetalleProducto
     @OneToMany(mappedBy = "producto", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JsonIgnoreProperties("producto")
-    private Set<DetalleProducto> detallesProducto = new HashSet<>();
+    @JsonIgnore // Esto evitará que se serialicen los detalles del producto cuando se haga un GET
+    private Set<DetalleProducto> detallesProducto;
 
-    // Bidireccional con ProductoCategoria
+    // Relación con ProductoCategoria
     @OneToMany(mappedBy = "producto", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JsonIgnoreProperties("producto")
-    private Set<ProductoCategoria> categorias = new HashSet<>();
+    @JsonIgnore // Esto también evita que se serialicen las categorías del producto
+    private Set<ProductoCategoria> productoCategorias;
+
+    // Constructor por defecto
+    public Producto() {
+    }
+
+    // Constructor con parámetros
+    public Producto(String nombre, String descripcion, Date fechaCreacion, boolean estaActivo) {
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.fechaCreacion = fechaCreacion;
+        this.estaActivo = estaActivo;
+    }
 
     // Getters y Setters
-
     public Long getId() {
         return id;
     }
@@ -95,11 +107,11 @@ public class Producto {
         this.detallesProducto = detallesProducto;
     }
 
-    public Set<ProductoCategoria> getCategorias() {
-        return categorias;
+    public Set<ProductoCategoria> getProductoCategorias() {
+        return productoCategorias;
     }
 
-    public void setCategorias(Set<ProductoCategoria> categorias) {
-        this.categorias = categorias;
+    public void setProductoCategorias(Set<ProductoCategoria> productoCategorias) {
+        this.productoCategorias = productoCategorias;
     }
 }

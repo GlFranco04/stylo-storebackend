@@ -1,30 +1,48 @@
 package com.stylo.store.models;
 
+import java.util.Set;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
-
-import java.util.List;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name = "talla")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Talla {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "nombre")
     private String nombre;
+
+    @Column(name = "esta_activo")
     private boolean estaActivo;
 
-    // Relación con DetalleProducto, ignoramos la propiedad "talla" para evitar el ciclo infinito
-    @OneToMany(mappedBy = "talla", cascade = CascadeType.ALL)
-    @JsonIgnoreProperties("talla")
-    private List<DetalleProducto> detallesProducto;
+    // Relación con DetalleProducto
+    @OneToMany(mappedBy = "talla", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore // Esto evitará que los detalles del producto sean devueltos cuando se haga un GET de Talla
+    private Set<DetalleProducto> detallesProducto;
+
+    // Constructor por defecto
+    public Talla() {
+    }
+
+    // Constructor con parámetros
+    public Talla(String nombre, boolean estaActivo) {
+        this.nombre = nombre;
+        this.estaActivo = estaActivo;
+    }
 
     // Getters y Setters
     public Long getId() {
@@ -51,11 +69,11 @@ public class Talla {
         this.estaActivo = estaActivo;
     }
 
-    public List<DetalleProducto> getDetallesProducto() {
+    public Set<DetalleProducto> getDetallesProducto() {
         return detallesProducto;
     }
 
-    public void setDetallesProducto(List<DetalleProducto> detallesProducto) {
+    public void setDetallesProducto(Set<DetalleProducto> detallesProducto) {
         this.detallesProducto = detallesProducto;
     }
 }
