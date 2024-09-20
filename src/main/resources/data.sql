@@ -23,3 +23,7 @@ INSERT INTO ALMACEN (nombre, sucursal_id) VALUES ('Almacen 1', 1);
 INSERT INTO ALMACEN (nombre, sucursal_id) VALUES ('Almacen 2', 1);
 INSERT INTO ALMACEN (nombre, sucursal_id) VALUES ('Almacen 3', 2);
 INSERT INTO ALMACEN (nombre, sucursal_id) VALUES ('Almacen 4', 3);
+
+INSERT INTO INVENTARIO (inventario_disponible,almacen_id,detalle_producto_id) VALUES (20, 1, 1);
+INSERT INTO INVENTARIO (inventario_disponible,almacen_id,detalle_producto_id) VALUES (50, 2, 1);
+INSERT INTO INVENTARIO (inventario_disponible,almacen_id,detalle_producto_id) VALUES (10, 1, 2);

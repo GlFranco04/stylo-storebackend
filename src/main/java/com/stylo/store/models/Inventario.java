@@ -29,7 +29,7 @@ public class Inventario {
 
   // Relacion Inventario con DetalleProducto n a 1
   @ManyToOne
-  @JoinColumn(name = "destalle_producto_id")
+  @JoinColumn(name = "detalle_producto_id")
   @JsonIgnoreProperties({"inventario","producto","talla"})
   private DetalleProducto detalleProducto;
 
