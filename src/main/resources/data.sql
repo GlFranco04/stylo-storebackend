@@ -32,6 +32,22 @@ INSERT INTO direccion (nombre, ubicacion, ciudad_id) VALUES ('Colegio','Barrio t
 INSERT INTO direccion (nombre, ubicacion, edificio, ciudad_id) VALUES ('Hogar','Barrio 24 de septiembre', '456',1);
 INSERT INTO direccion (nombre, ubicacion,ciudad_id) VALUES ('Casa','Barrio los tajibos',2);
 
+INSERT INTO permiso (nombre, descripcion) VALUES ('crear_empresa','Permite crear los datos de la empresa');
+INSERT INTO permiso (nombre, descripcion) VALUES ('ver_empresa','Permite ver los datos de la empresa');
+INSERT INTO permiso (nombre, descripcion) VALUES ('editar_empresa','Permite editar los datos de la empresa');
+INSERT INTO permiso (nombre, descripcion) VALUES ('eliminar_empresa','Permite eliminar los datos de la empresa');
+
+INSERT INTO rol (nombre) VALUES ('SuperUsuario');
+INSERT INTO rol (nombre) VALUES ('Vendedor');
+INSERT INTO rol (nombre) VALUES ('Cliente');
+
+INSERT INTO rol_permiso (fecha_asignacion,permiso_id,rol_id) VALUES ('2024-09-19',1,1);
+INSERT INTO rol_permiso (fecha_asignacion,permiso_id,rol_id) VALUES ('2024-09-19',2,1);
+INSERT INTO rol_permiso (fecha_asignacion,permiso_id,rol_id) VALUES ('2024-09-19',3,1);
+INSERT INTO rol_permiso (fecha_asignacion,permiso_id,rol_id) VALUES ('2024-09-19',4,1);
+INSERT INTO rol_permiso (fecha_asignacion,permiso_id,rol_id) VALUES ('2024-09-19',2,2);
+INSERT INTO rol_permiso (fecha_asignacion,permiso_id,rol_id) VALUES ('2024-09-19',2,3);
+
 INSERT INTO usuario_direccion (fecha_creacion, direccion_id) VALUES ('2024-09-19',1);
 INSERT INTO usuario_direccion (fecha_creacion, direccion_id) VALUES ('2024-09-19',2);
 INSERT INTO usuario_direccion (fecha_creacion, direccion_id) VALUES ('2024-09-30',3);
