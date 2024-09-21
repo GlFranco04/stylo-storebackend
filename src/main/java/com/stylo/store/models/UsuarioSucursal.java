@@ -29,6 +29,12 @@ public class UsuarioSucursal {
   @JsonIgnoreProperties({"usuarioSucursales","empresa","direccion"})
   private Sucursal sucursal;// se tiene que poner lo mismo en mappedBy en la otra entidad, en este caso "sucursal"
 
+  // Relacion UsuarioSucursal con Usuario n a 1
+  @ManyToOne
+  @JoinColumn(name = "usuario_id")
+  @JsonIgnoreProperties({"usuarioSucursales","rol"})
+  private Usuario usuario;
+
   // Contructor por defecto
   public UsuarioSucursal() {}
 
@@ -57,5 +63,12 @@ public class UsuarioSucursal {
 
   public void setSucursal(Sucursal sucursal) {
     this.sucursal = sucursal;
+  }
+
+  public Usuario getUsuario() {
+    return usuario;
+  }
+  public void setUsuario(Usuario usuario) {
+    this.usuario = usuario;
   }
 }

@@ -29,6 +29,11 @@ public class Rol {
     @JsonIgnore
     private Set<RolPermiso> rolPermisos;
 
+    // Relacion Rol con Usuario 1 a n
+    @OneToMany(mappedBy = "rol", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore
+    private Set<Usuario> usuarios;
+
     // Constructores
     public Rol() {}
 
@@ -55,5 +60,13 @@ public class Rol {
     
     public void setRolPermisos(Set<RolPermiso> rolPermisos) {
         this.rolPermisos = rolPermisos;
+    }
+
+    public Set<Usuario> getUsuarios() {
+        return usuarios;
+    }
+    
+    public void setUsuarios(Set<Usuario> usuarios) {
+        this.usuarios = usuarios;
     }
 }

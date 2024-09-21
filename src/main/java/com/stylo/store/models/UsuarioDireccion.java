@@ -27,6 +27,12 @@ public class UsuarioDireccion {
   @JsonIgnoreProperties({"usuarioDirecciones","ciudad"})
   private Direccion direccion;
 
+  // Relacion UsuarioDirecciones con Usuario n a 1
+  @ManyToOne
+  @JoinColumn(name = "usuario_id")
+  @JsonIgnoreProperties({"usuarioDirecciones","rol"})
+  private Usuario usuario;
+
   // Constructor por defecto
   public UsuarioDireccion() {
   }
@@ -53,6 +59,14 @@ public class UsuarioDireccion {
   }
   public void setDireccion(Direccion direccion) {
     this.direccion = direccion;
+  }
+
+  public Usuario getUsuario(){
+    return usuario;
+  }
+
+  public void setUsuario(Usuario usuario){
+    this.usuario = usuario;
   }
 
 }

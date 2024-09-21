@@ -48,10 +48,14 @@ INSERT INTO rol_permiso (fecha_asignacion,permiso_id,rol_id) VALUES ('2024-09-19
 INSERT INTO rol_permiso (fecha_asignacion,permiso_id,rol_id) VALUES ('2024-09-19',2,2);
 INSERT INTO rol_permiso (fecha_asignacion,permiso_id,rol_id) VALUES ('2024-09-19',2,3);
 
-INSERT INTO usuario_direccion (fecha_creacion, direccion_id) VALUES ('2024-09-19',1);
-INSERT INTO usuario_direccion (fecha_creacion, direccion_id) VALUES ('2024-09-19',2);
-INSERT INTO usuario_direccion (fecha_creacion, direccion_id) VALUES ('2024-09-30',3);
-INSERT INTO usuario_direccion (fecha_creacion, direccion_id) VALUES ('2024-10-10',4);
+INSERT INTO usuario(correo,contrasena,nombre,apellido,sexo,rol_id) VALUES ('superusuario1@gmail.com','Superusuario1pass','Super','Usuario','M',1);
+INSERT INTO usuario(correo,contrasena,nombre,apellido,sexo,rol_id) VALUES ('vendedor1@gmail.com','vendedor1pass','Vendedor','Pro','M',2);
+INSERT INTO usuario(correo,contrasena,nombre,apellido,sexo,rol_id) VALUES ('cliente1@gmail.com','Cliente1pass','Cliente','Vip','M',3);
+
+INSERT INTO usuario_direccion (fecha_creacion, direccion_id,usuario_id) VALUES ('2024-09-19',1,3);
+INSERT INTO usuario_direccion (fecha_creacion, direccion_id,usuario_id) VALUES ('2024-09-19',2,3);
+INSERT INTO usuario_direccion (fecha_creacion, direccion_id,usuario_id) VALUES ('2024-09-30',3,2);
+INSERT INTO usuario_direccion (fecha_creacion, direccion_id,usuario_id) VALUES ('2024-10-10',4,1);
 
 INSERT INTO sucursal (nombre, esta_activo, empresa_id, direccion_id) VALUES ('Sucursal 1', true,1,1);
 INSERT INTO sucursal (nombre, esta_activo, empresa_id, direccion_id) VALUES ('Sucursal 2', true,2,2);
@@ -64,5 +68,5 @@ INSERT INTO inventario (inventario_disponible,almacen_id,detalle_producto_id) VA
 INSERT INTO inventario (inventario_disponible,almacen_id,detalle_producto_id) VALUES (50, 2, 1);
 INSERT INTO inventario (inventario_disponible,almacen_id,detalle_producto_id) VALUES (10, 1, 2);
 
-INSERT INTO usuario_sucursal (fecha_inicio, sucursal_id) VALUES ('2024-09-19', 1);
-INSERT INTO usuario_sucursal (fecha_inicio, sucursal_id) VALUES ('2024-09-25', 2);
+INSERT INTO usuario_sucursal (fecha_inicio, sucursal_id,usuario_id) VALUES ('2024-09-19', 1,1);
+INSERT INTO usuario_sucursal (fecha_inicio, sucursal_id,usuario_id) VALUES ('2024-09-25', 2,2);
