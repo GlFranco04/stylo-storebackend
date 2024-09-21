@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.stylo.store.models.Usuario;
@@ -16,12 +16,12 @@ public class UsuarioService {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
-    //@Autowired
-    //private PasswordEncoder passwordEncoder;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     // Crear un nuevo usuario con la contraseña encriptada
     public Usuario saveUsuario(Usuario usuario) {
-        //usuario.setContrasena(passwordEncoder.encode(usuario.getContrasena())); // Encriptar contraseña
+        usuario.setContrasena(passwordEncoder.encode(usuario.getContrasena())); // Encriptar contraseña
         return usuarioRepository.save(usuario);
     }
 

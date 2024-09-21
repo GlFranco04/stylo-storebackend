@@ -38,6 +38,8 @@ public class Usuario {
 
   @Column(name = "sexo")
   private char sexo;
+  @Column(name = "esta_activo")
+  private boolean estaActivo;
 
   // Relacion Usuario con Rol n a 1
   @ManyToOne
@@ -103,6 +105,14 @@ public class Usuario {
   }
   public void setSexo(char sexo){
     this.sexo = sexo;
+  }
+
+  public boolean isEstaActivo(){
+    return estaActivo;
+  }
+  
+  public void setEstaActivo(boolean estaActivo){
+    this.estaActivo = estaActivo;
   }
 
   public Rol getrol(){

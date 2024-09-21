@@ -48,15 +48,6 @@ INSERT INTO rol_permiso (fecha_asignacion,permiso_id,rol_id) VALUES ('2024-09-19
 INSERT INTO rol_permiso (fecha_asignacion,permiso_id,rol_id) VALUES ('2024-09-19',2,2);
 INSERT INTO rol_permiso (fecha_asignacion,permiso_id,rol_id) VALUES ('2024-09-19',2,3);
 
-INSERT INTO usuario(correo,contrasena,nombre,apellido,sexo,rol_id) VALUES ('superusuario1@gmail.com','Superusuario1pass','Super','Usuario','M',1);
-INSERT INTO usuario(correo,contrasena,nombre,apellido,sexo,rol_id) VALUES ('vendedor1@gmail.com','vendedor1pass','Vendedor','Pro','M',2);
-INSERT INTO usuario(correo,contrasena,nombre,apellido,sexo,rol_id) VALUES ('cliente1@gmail.com','Cliente1pass','Cliente','Vip','M',3);
-
-INSERT INTO usuario_direccion (fecha_creacion, direccion_id,usuario_id) VALUES ('2024-09-19',1,3);
-INSERT INTO usuario_direccion (fecha_creacion, direccion_id,usuario_id) VALUES ('2024-09-19',2,3);
-INSERT INTO usuario_direccion (fecha_creacion, direccion_id,usuario_id) VALUES ('2024-09-30',3,2);
-INSERT INTO usuario_direccion (fecha_creacion, direccion_id,usuario_id) VALUES ('2024-10-10',4,1);
-
 INSERT INTO sucursal (nombre, esta_activo, empresa_id, direccion_id) VALUES ('Sucursal 1', true,1,1);
 INSERT INTO sucursal (nombre, esta_activo, empresa_id, direccion_id) VALUES ('Sucursal 2', true,2,2);
 
@@ -68,5 +59,101 @@ INSERT INTO inventario (inventario_disponible,almacen_id,detalle_producto_id) VA
 INSERT INTO inventario (inventario_disponible,almacen_id,detalle_producto_id) VALUES (50, 2, 1);
 INSERT INTO inventario (inventario_disponible,almacen_id,detalle_producto_id) VALUES (10, 1, 2);
 
-INSERT INTO usuario_sucursal (fecha_inicio, sucursal_id,usuario_id) VALUES ('2024-09-19', 1,1);
-INSERT INTO usuario_sucursal (fecha_inicio, sucursal_id,usuario_id) VALUES ('2024-09-25', 2,2);
+-- {
+--   "correo": "superusuario1@gmail.com",
+--   "contrasena": "Superusuario1pass",
+--   "nombre": "Super",
+--   "apellido": "Usuario",
+--   "sexo": "M",
+--   "estaActivo": true,
+--   "rol": {
+--     "id": 1  // ID del rol 'SuperUsuario'
+--   }
+-- }
+
+-- {
+--   "correo": "vendedor1@gmail.com",
+--   "contrasena": "vendedor1pass",
+--   "nombre": "Vendedor",
+--   "apellido": "Pro",
+--   "sexo": "M",
+--   "estaActivo": true,
+--   "rol": {
+--     "id": 2  // ID del rol 'Vendedor'
+--   }
+-- }
+
+-- {
+--   "correo": "cliente1@gmail.com",
+--   "contrasena": "Cliente1pass",
+--   "nombre": "Cliente",
+--   "apellido": "Vip",
+--   "sexo": "M",
+--   "estaActivo": true,
+--   "rol": {
+--     "id": 3  // ID del rol 'Cliente'
+--   }
+-- }
+
+-- UsuarioDireccion
+
+-- {
+--   "fechaCreacion": "2024-09-19",
+--   "direccion": {
+--     "id": 1  // ID de la dirección correspondiente
+--   },
+--   "usuario": {
+--     "id": 3  // ID del usuario 'cliente1@gmail.com'
+--   }
+-- }
+
+-- {
+--   "fechaCreacion": "2024-09-19",
+--   "direccion": {
+--     "id": 2
+--   },
+--   "usuario": {
+--     "id": 3
+--   }
+-- }
+
+-- {
+--   "fechaCreacion": "2024-09-30",
+--   "direccion": {
+--     "id": 3
+--   },
+--   "usuario": {
+--     "id": 2  // ID del usuario 'vendedor1@gmail.com'
+--   }
+-- }
+
+-- {
+--   "fechaCreacion": "2024-10-10",
+--   "direccion": {
+--     "id": 4
+--   },
+--   "usuario": {
+--     "id": 1  // ID del usuario 'superusuario1@gmail.com'
+--   }
+-- }
+
+-- UsuarioSucursal
+-- {
+--   "fechaInicio": "2024-09-19",
+--   "sucursal": {
+--     "id": 1  // ID de la sucursal correspondiente
+--   },
+--   "usuario": {
+--     "id": 1  // ID del usuario 'superusuario1@gmail.com'
+--   }
+-- }
+
+-- {
+--   "fechaInicio": "2024-09-25",
+--   "sucursal": {
+--     "id": 2
+--   },
+--   "usuario": {
+--     "id": 2  // ID del usuario 'vendedor1@gmail.com'
+--   }
+-- }
