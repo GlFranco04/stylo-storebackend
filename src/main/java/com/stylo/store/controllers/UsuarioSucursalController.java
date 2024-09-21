@@ -30,7 +30,7 @@ public class UsuarioSucursalController {
   }
   // Obtener un usuarioSucursal por ID
   @GetMapping("/{id}")
-  public Optional<UsuarioSucursal> getUsuarioSucursalById(Long id) {
+  public Optional<UsuarioSucursal> getUsuarioSucursalById(@PathVariable Long id) {
     return usuarioSucursalService.getUsuarioSucursalById(id);
   }
 

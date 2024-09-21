@@ -1,5 +1,7 @@
 package com.stylo.store.models;
 
+import java.sql.Date;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.Column;
@@ -19,7 +21,7 @@ public class UsuarioSucursal {
   private Long id;
 
   @Column(name = "fechaInicio")
-  private String fechaInicio;
+  private Date fechaInicio;
 
   // Relacion UsuarioSucursal con Sucursal n a 1
   @ManyToOne
@@ -31,7 +33,7 @@ public class UsuarioSucursal {
   public UsuarioSucursal() {}
 
   // Constructor con parametros
-  public UsuarioSucursal(String fechaInicio) {
+  public UsuarioSucursal(Date fechaInicio) {
     this.fechaInicio = fechaInicio;
   }
 
@@ -42,10 +44,10 @@ public class UsuarioSucursal {
   public void setId(Long id) {
     this.id = id;
   }
-  public String getFechaInicio() {
+  public Date getFechaInicio() {
     return fechaInicio;
   }
-  public void setFechaInicio(String fechaInicio) {
+  public void setFechaInicio(Date fechaInicio) {
     this.fechaInicio = fechaInicio;
   }
 
