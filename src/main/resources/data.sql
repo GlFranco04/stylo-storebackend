@@ -19,8 +19,23 @@ INSERT INTO empresa (nombre, correo, telefono, propietario) VALUES ('Empresa 1',
 INSERT INTO empresa (nombre, correo, telefono, propietario) VALUES ('Empresa 2', 'empresa2@gmail.com', '+591 22222222', 'Propietario 2');
 INSERT INTO empresa (nombre, correo, telefono, propietario) VALUES ('Empresa 3', 'empresa1@gmail.com', '+591 33333333', 'Propietario 3');
 
-INSERT INTO direccion (nombre, ubicacion, edificio) VALUES ('Trabajo','Barrio los mangales', '456');
-INSERT INTO direccion (nombre, ubicacion) VALUES ('Casa','Barrio los tajibos');
+INSERT INTO pais (nombre) VALUES ('Bolivia');
+INSERT INTO pais (nombre) VALUES ('Chile');
+
+INSERT INTO ciudad (nombre, pais_id) VALUES ('Santa Cruz',1);
+INSERT INTO ciudad (nombre, pais_id) VALUES ('Cochabamba',1);
+INSERT INTO ciudad (nombre, pais_id) VALUES ('La Paz',1);
+INSERT INTO ciudad (nombre, pais_id) VALUES ('Beni',1);
+
+INSERT INTO direccion (nombre, ubicacion, edificio, ciudad_id) VALUES ('Trabajo','Barrio los mangales', '456',1);
+INSERT INTO direccion (nombre, ubicacion, ciudad_id) VALUES ('Colegio','Barrio totai',1);
+INSERT INTO direccion (nombre, ubicacion, edificio, ciudad_id) VALUES ('Hogar','Barrio 24 de septiembre', '456',1);
+INSERT INTO direccion (nombre, ubicacion,ciudad_id) VALUES ('Casa','Barrio los tajibos',2);
+
+INSERT INTO usuario_direccion (fecha_creacion, direccion_id) VALUES ('2024-09-19',1);
+INSERT INTO usuario_direccion (fecha_creacion, direccion_id) VALUES ('2024-09-19',2);
+INSERT INTO usuario_direccion (fecha_creacion, direccion_id) VALUES ('2024-09-30',3);
+INSERT INTO usuario_direccion (fecha_creacion, direccion_id) VALUES ('2024-10-10',4);
 
 INSERT INTO sucursal (nombre, esta_activo, empresa_id, direccion_id) VALUES ('Sucursal 1', true,1,1);
 INSERT INTO sucursal (nombre, esta_activo, empresa_id, direccion_id) VALUES ('Sucursal 2', true,2,2);
