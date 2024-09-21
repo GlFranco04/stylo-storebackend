@@ -1,10 +1,17 @@
 package com.stylo.store.models;
 
+import java.util.Set;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -14,7 +21,7 @@ public class Empresa {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @Column(name = "empresa")
+  @Column(name = "nombre")
   private String nombre;
 
   @Column(name = "correo")
@@ -25,6 +32,11 @@ public class Empresa {
 
   @Column(name = "propietario")
   private String propietario;
+
+  // Relacion de Empresa con Sucursal 1 a n
+  @OneToMany(mappedBy = "empresa", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  @JsonIgnore
+  private Set<Sucursal> sucursales;
 
   // Constructor por defecto
   public Empresa() {
@@ -79,4 +91,7 @@ public class Empresa {
     this.propietario = propietario;
   }
 
+  public Set<Sucursal> getSucursales(){
+    return sucursales;
+  }
 }

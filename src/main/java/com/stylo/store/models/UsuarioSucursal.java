@@ -1,10 +1,14 @@
 package com.stylo.store.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -16,6 +20,12 @@ public class UsuarioSucursal {
 
   @Column(name = "fechaInicio")
   private String fechaInicio;
+
+  // Relacion UsuarioSucursal con Sucursal n a 1
+  @ManyToOne
+  @JoinColumn(name = "sucursal_id")
+  @JsonIgnoreProperties({"usuarioSucursales","empresa","direccion"})
+  private Sucursal sucursal;// se tiene que poner lo mismo en mappedBy en la otra entidad, en este caso "sucursal"
 
   // Contructor por defecto
   public UsuarioSucursal() {}
@@ -37,5 +47,13 @@ public class UsuarioSucursal {
   }
   public void setFechaInicio(String fechaInicio) {
     this.fechaInicio = fechaInicio;
+  }
+
+  public Sucursal getSucursal() {
+    return sucursal;
+  }
+
+  public void setSucursal(Sucursal sucursal) {
+    this.sucursal = sucursal;
   }
 }

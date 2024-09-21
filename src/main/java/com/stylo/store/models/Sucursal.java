@@ -3,6 +3,7 @@ package com.stylo.store.models;
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -11,7 +12,10 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -31,6 +35,23 @@ public class Sucursal {
   @OneToMany(mappedBy = "sucursal", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   @JsonIgnore
   private Set<Almacen> almacenes;
+
+  // Relacion Sucursal con Empresa n a 1
+  @ManyToOne
+  @JoinColumn(name = "empresa_id")
+  @JsonIgnoreProperties("sucursales")
+  private Empresa empresa;
+
+  // Relacion Sucursal con Direccion 1 a 1
+  @OneToOne
+  @JoinColumn(name = "direccion_id")
+  @JsonIgnoreProperties("sucursal")
+  private Direccion direccion;
+
+  // Relacion Sucursal con UsuarioSucursal 1 a n
+  @OneToMany(mappedBy = "sucursal", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  @JsonIgnore
+  private Set<UsuarioSucursal> usuarioSucursales;
 
   //Contructor por defecto
   public Sucursal() {}
@@ -65,6 +86,29 @@ public class Sucursal {
   }
   public void setAlmacenes(Set<Almacen> almacenes){
     this.almacenes = almacenes;
+  }
+
+  public Empresa getEmpresa() {
+    return empresa;
+  }
+  public void setEmpresa(Empresa empresa) {
+    this.empresa = empresa;
+  }
+
+  public Direccion getDireccion() {
+    return direccion;
+  }
+
+  public void setDireccion(Direccion direccion) {
+    this.direccion = direccion;
+  }
+
+  public Set<UsuarioSucursal> getUsuarioSucursales() {
+    return usuarioSucursales;
+  }
+
+  public void setUsuarioSucursales(Set<UsuarioSucursal> usuarioSucursales) {
+    this.usuarioSucursales = usuarioSucursales;
   }
 
 }

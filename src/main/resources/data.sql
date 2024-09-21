@@ -15,15 +15,23 @@ INSERT INTO detalle_producto (color, precio, producto_id, talla_id) VALUES ('Roj
 INSERT INTO producto_categoria (producto_id, categoria_id) VALUES (1, 1);
 INSERT INTO producto_categoria (producto_id, categoria_id) VALUES (1, 2);
 
-INSERT INTO sucursal (nombre, esta_activo) VALUES ('Sucursal 1', true);
-INSERT INTO sucursal (nombre, esta_activo) VALUES ('Sucursal 2', true);
-INSERT INTO sucursal (nombre, esta_activo) VALUES ('Sucursal 3', true);
+INSERT INTO empresa (nombre, correo, telefono, propietario) VALUES ('Empresa 1', 'empresa1@gmail.com', '+591 11111111', 'Propietario 1');
+INSERT INTO empresa (nombre, correo, telefono, propietario) VALUES ('Empresa 2', 'empresa2@gmail.com', '+591 22222222', 'Propietario 2');
+INSERT INTO empresa (nombre, correo, telefono, propietario) VALUES ('Empresa 3', 'empresa1@gmail.com', '+591 33333333', 'Propietario 3');
 
-INSERT INTO ALMACEN (nombre, sucursal_id) VALUES ('Almacen 1', 1);
-INSERT INTO ALMACEN (nombre, sucursal_id) VALUES ('Almacen 2', 1);
-INSERT INTO ALMACEN (nombre, sucursal_id) VALUES ('Almacen 3', 2);
-INSERT INTO ALMACEN (nombre, sucursal_id) VALUES ('Almacen 4', 3);
+INSERT INTO direccion (nombre, ubicacion, edificio) VALUES ('Trabajo','Barrio los mangales', '456');
+INSERT INTO direccion (nombre, ubicacion) VALUES ('Casa','Barrio los tajibos');
 
-INSERT INTO INVENTARIO (inventario_disponible,almacen_id,detalle_producto_id) VALUES (20, 1, 1);
-INSERT INTO INVENTARIO (inventario_disponible,almacen_id,detalle_producto_id) VALUES (50, 2, 1);
-INSERT INTO INVENTARIO (inventario_disponible,almacen_id,detalle_producto_id) VALUES (10, 1, 2);
+INSERT INTO sucursal (nombre, esta_activo, empresa_id, direccion_id) VALUES ('Sucursal 1', true,1,1);
+INSERT INTO sucursal (nombre, esta_activo, empresa_id, direccion_id) VALUES ('Sucursal 2', true,2,2);
+
+INSERT INTO almacen (nombre, sucursal_id) VALUES ('Almacen 1', 1);
+INSERT INTO almacen (nombre, sucursal_id) VALUES ('Almacen 2', 1);
+INSERT INTO almacen (nombre, sucursal_id) VALUES ('Almacen 3', 2);
+
+INSERT INTO inventario (inventario_disponible,almacen_id,detalle_producto_id) VALUES (20, 1, 1);
+INSERT INTO inventario (inventario_disponible,almacen_id,detalle_producto_id) VALUES (50, 2, 1);
+INSERT INTO inventario (inventario_disponible,almacen_id,detalle_producto_id) VALUES (10, 1, 2);
+
+INSERT INTO usuario_sucursal (fecha_inicio, sucursal_id) VALUES ('2024-09-19', 1);
+INSERT INTO usuario_sucursal (fecha_inicio, sucursal_id) VALUES ('2024-09-25', 2);
