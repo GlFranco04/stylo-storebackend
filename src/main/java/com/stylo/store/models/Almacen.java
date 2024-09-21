@@ -31,7 +31,7 @@ public class Almacen {
   // Relacion Almacen con Sucursal n a 1
   @ManyToOne
   @JoinColumn(name = "sucursal_id")
-  @JsonIgnoreProperties("almacenes")
+  @JsonIgnoreProperties({"almacenes","empresa","direccion"})
   private Sucursal sucursal;
 
   // Relacion Almacen con Inventario 1 a n

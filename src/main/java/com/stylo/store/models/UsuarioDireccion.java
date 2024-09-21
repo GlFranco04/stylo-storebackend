@@ -1,5 +1,7 @@
 package com.stylo.store.models;
 
+import java.time.LocalDate;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.Column;
@@ -19,7 +21,7 @@ public class UsuarioDireccion {
   private Long id;
 
   @Column(name = "fechaCreacion")
-  private String fechaCreacion;
+  private LocalDate fechaCreacion;
 
   // Relacion UsuarioDireccion con Direccion n a 1
   @ManyToOne
@@ -37,7 +39,7 @@ public class UsuarioDireccion {
   public UsuarioDireccion() {
   }
   // Constructor con paramtros
-  public UsuarioDireccion(String fechaCreacion) {
+  public UsuarioDireccion(LocalDate fechaCreacion) {
     this.fechaCreacion = fechaCreacion;
   }
   // Getters y Setters
@@ -47,10 +49,10 @@ public class UsuarioDireccion {
   public void setId(Long id) {
     this.id = id;
   }
-  public String getFechaCreacion() {
+  public LocalDate getFechaCreacion() {
     return fechaCreacion;
   }
-  public void setFechaCreacion(String fechaCreacion) {
+  public void setFechaCreacion(LocalDate fechaCreacion) {
     this.fechaCreacion = fechaCreacion;
   }
 

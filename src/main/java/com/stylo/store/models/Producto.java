@@ -1,5 +1,6 @@
 package com.stylo.store.models;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.Set;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -29,7 +30,7 @@ public class Producto {
     private String descripcion;
 
     @Column(name = "fechaCreacion")
-    private Date fechaCreacion;
+    private LocalDate fechaCreacion;
 
     @Column(name = "esta_activo")
     private boolean estaActivo;
@@ -49,7 +50,7 @@ public class Producto {
     }
 
     // Constructor con parámetros
-    public Producto(String nombre, String descripcion, Date fechaCreacion, boolean estaActivo) {
+    public Producto(String nombre, String descripcion, LocalDate fechaCreacion, boolean estaActivo) {
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.fechaCreacion = fechaCreacion;
@@ -81,11 +82,11 @@ public class Producto {
         this.descripcion = descripcion;
     }
 
-    public Date getFechaCreacion() {
+    public LocalDate getFechaCreacion() {
         return fechaCreacion;
     }
 
-    public void setFechaCreacion(Date fechaCreacion) {
+    public void setFechaCreacion(LocalDate fechaCreacion) {
         this.fechaCreacion = fechaCreacion;
     }
 

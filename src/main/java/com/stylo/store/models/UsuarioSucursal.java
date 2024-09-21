@@ -1,6 +1,7 @@
 package com.stylo.store.models;
 
 import java.sql.Date;
+import java.time.LocalDate;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -21,7 +22,7 @@ public class UsuarioSucursal {
   private Long id;
 
   @Column(name = "fechaInicio")
-  private Date fechaInicio;
+  private LocalDate fechaInicio;
 
   // Relacion UsuarioSucursal con Sucursal n a 1
   @ManyToOne
@@ -39,7 +40,7 @@ public class UsuarioSucursal {
   public UsuarioSucursal() {}
 
   // Constructor con parametros
-  public UsuarioSucursal(Date fechaInicio) {
+  public UsuarioSucursal(LocalDate fechaInicio) {
     this.fechaInicio = fechaInicio;
   }
 
@@ -50,10 +51,10 @@ public class UsuarioSucursal {
   public void setId(Long id) {
     this.id = id;
   }
-  public Date getFechaInicio() {
+  public LocalDate getFechaInicio() {
     return fechaInicio;
   }
-  public void setFechaInicio(Date fechaInicio) {
+  public void setFechaInicio(LocalDate fechaInicio) {
     this.fechaInicio = fechaInicio;
   }
 

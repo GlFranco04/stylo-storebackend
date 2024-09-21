@@ -1,6 +1,7 @@
 package com.stylo.store.models;
 
 import java.sql.Date;
+import java.time.LocalDate;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -21,7 +22,7 @@ public class RolPermiso {
   private Long id;
 
   @Column(name = "fechaAsignacion")
-  private Date fechaAsignacion;
+  private LocalDate fechaAsignacion;
 
   // Relacion RolPermiso con Rol n a 1
   @ManyToOne
@@ -40,7 +41,7 @@ public class RolPermiso {
   }
 
   // Constructor con parametros
-  public RolPermiso(Date fechaAsignacion) {
+  public RolPermiso(LocalDate fechaAsignacion) {
     this.fechaAsignacion = fechaAsignacion;
   }
 
@@ -53,11 +54,11 @@ public class RolPermiso {
     this.id = id;
   }
   
-  public Date getFechaAsignacion() {
+  public LocalDate getFechaAsignacion() {
     return fechaAsignacion;
   }
   
-  public void setFechaAsignacion(Date fechaAsignacion) {
+  public void setFechaAsignacion(LocalDate fechaAsignacion) {
     this.fechaAsignacion = fechaAsignacion;
   }
 
