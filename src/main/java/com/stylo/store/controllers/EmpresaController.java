@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -38,12 +39,14 @@ public class EmpresaController {
 
   // Crear una nueva empresa
   @PostMapping
+  @PreAuthorize("hasAuthority('crear_empresa')")
   public Empresa createEmpresa(@RequestBody Empresa empresa) {
     return empresaService.saveEmpresa(empresa);
   }
 
   // Actualizar una empresa existente
   @PutMapping("/{id}")
+  @PreAuthorize("hasAuthority('editar_empresa')")
   public ResponseEntity<Empresa> updateEmpresa(@PathVariable Long id, @RequestBody Empresa empresaDetails) {
     Optional<Empresa> empresa = empresaService.getEmpresaById(id);
     if (empresa.isPresent()) {
@@ -60,6 +63,7 @@ public class EmpresaController {
 
   // Eliminar una empresa existente
   @DeleteMapping("/{id}")
+  @PreAuthorize("hasAuthority('eliminar_empresa')")
   public ResponseEntity<Void> deleteEmpresa(@PathVariable Long id) {
     Optional<Empresa> empresa =empresaService.getEmpresaById(id);
     if (empresa.isPresent()) {

@@ -53,7 +53,7 @@ public class UsuarioController {
           usuarioActualizado.setApellido(usuario.getApellido());
           usuarioActualizado.setCorreo(usuario.getCorreo());
           usuarioActualizado.setContrasena(usuario.getContrasena());
-          usuarioActualizado.setRol(usuario.getrol());
+          usuarioActualizado.setRol(usuario.getRol());
           return ResponseEntity.ok(usuarioService.saveUsuario(usuarioActualizado));
         } else {
           return ResponseEntity.notFound().build();

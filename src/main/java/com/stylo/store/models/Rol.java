@@ -25,7 +25,7 @@ public class Rol {
     private String nombre;
 
     // Relacion Rol con RolPermiso 1 a n
-    @OneToMany(mappedBy = "rol", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "rol", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JsonIgnore
     private Set<RolPermiso> rolPermisos;
 

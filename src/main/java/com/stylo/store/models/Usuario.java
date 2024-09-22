@@ -48,7 +48,7 @@ public class Usuario {
   private Rol rol;
 
   // Relacion Usuario con UsuarioDireccion 1 a n
-  @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
   @JsonIgnore
   private Set<UsuarioDireccion> usuarioDirecciones;
 
@@ -115,7 +115,7 @@ public class Usuario {
     this.estaActivo = estaActivo;
   }
 
-  public Rol getrol(){
+  public Rol getRol(){
     return rol;
   }
   public void setRol(Rol rol){
