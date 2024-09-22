@@ -1,6 +1,4 @@
 package com.stylo.store.models;
-
-import java.sql.Date;
 import java.time.LocalDate;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
