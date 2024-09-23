@@ -287,13 +287,13 @@ public class DatabaseSeeder implements CommandLineRunner {
     private void seedRoles() {
         if (rolRepository.count() == 0) {
             Rol r1 = new Rol();
-            r1.setNombre("ROLE_SuperUsuario");
+            r1.setNombre("SuperUsuario");
 
             Rol r2 = new Rol();
-            r2.setNombre("ROLE_Vendedor");
+            r2.setNombre("Vendedor");
 
             Rol r3 = new Rol();
-            r3.setNombre("ROLE_Cliente");
+            r3.setNombre("Cliente");
 
             rolRepository.saveAll(Arrays.asList(r1, r2, r3));
         }
@@ -302,9 +302,9 @@ public class DatabaseSeeder implements CommandLineRunner {
     private void seedRolPermisos() {
         if (rolPermisoRepository.count() == 0) {
             // Obtener roles y permisos
-            Optional<Rol> superUsuario = rolRepository.findByNombre("ROLE_SuperUsuario");
-            Optional<Rol> vendedor = rolRepository.findByNombre("ROLE_Vendedor");
-            Optional<Rol> cliente = rolRepository.findByNombre("ROLE_Cliente");
+            Optional<Rol> superUsuario = rolRepository.findByNombre("SuperUsuario");
+            Optional<Rol> vendedor = rolRepository.findByNombre("Vendedor");
+            Optional<Rol> cliente = rolRepository.findByNombre("Cliente");
 
             Optional<Permiso> crearEmpresa = permisoRepository.findByNombre("crear_empresa");
             Optional<Permiso> verEmpresa = permisoRepository.findByNombre("ver_empresa");
@@ -354,9 +354,9 @@ public class DatabaseSeeder implements CommandLineRunner {
 
     private void seedUsuarios() {
         if (usuarioRepository.count() == 0) {
-            Optional<Rol> superUsuario = rolRepository.findByNombre("ROLE_SuperUsuario");
-            Optional<Rol> vendedor = rolRepository.findByNombre("ROLE_Vendedor");
-            Optional<Rol> cliente = rolRepository.findByNombre("ROLE_Cliente");
+            Optional<Rol> superUsuario = rolRepository.findByNombre("SuperUsuario");
+            Optional<Rol> vendedor = rolRepository.findByNombre("Vendedor");
+            Optional<Rol> cliente = rolRepository.findByNombre("Cliente");
 
             if (superUsuario.isPresent() && vendedor.isPresent() && cliente.isPresent()) {
                 Usuario u1 = new Usuario();
