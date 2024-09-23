@@ -4,6 +4,7 @@ import com.stylo.store.models.Producto;
 import com.stylo.store.services.ProductoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,6 +19,7 @@ public class ProductoController {
 
     // Obtener todos los productos
     @GetMapping
+    @PreAuthorize("hasAuthority('ver_producto')")
     public List<Producto> getAllProductos() {
         return productoService.getAllActiveProductos();
     }

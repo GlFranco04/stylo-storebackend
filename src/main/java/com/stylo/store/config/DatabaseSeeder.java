@@ -280,7 +280,24 @@ public class DatabaseSeeder implements CommandLineRunner {
             p4.setNombre("eliminar_empresa");
             p4.setDescripcion("Permite eliminar los datos de la empresa");
 
-            permisoRepository.saveAll(Arrays.asList(p1, p2, p3, p4));
+            Permiso p6 = new Permiso();
+            p6.setNombre("crear_producto");
+            p6.setDescripcion("Permite crear los datos del producto");
+
+            Permiso p7 = new Permiso();
+            p7.setNombre("ver_producto");
+            p7.setDescripcion("Permite ver los datos del producto");
+
+            Permiso p8 = new Permiso();
+            p8.setNombre("editar_producto");
+            p8.setDescripcion("Permite editar los datos del producto");
+
+            Permiso p9 = new Permiso();
+            p9.setNombre("eliminar_producto");
+            p9.setDescripcion("Permite eliminar los datos del producto");
+
+
+            permisoRepository.saveAll(Arrays.asList(p1, p2, p3, p4,p6,p7,p8,p9));
         }
     }
 
@@ -310,6 +327,10 @@ public class DatabaseSeeder implements CommandLineRunner {
             Optional<Permiso> verEmpresa = permisoRepository.findByNombre("ver_empresa");
             Optional<Permiso> editarEmpresa = permisoRepository.findByNombre("editar_empresa");
             Optional<Permiso> eliminarEmpresa = permisoRepository.findByNombre("eliminar_empresa");
+            Optional<Permiso> crearProducto = permisoRepository.findByNombre("crear_producto");
+            Optional<Permiso> verProducto = permisoRepository.findByNombre("ver_producto");
+            Optional<Permiso> editarProducto = permisoRepository.findByNombre("editar_producto");
+            Optional<Permiso> eliminarProducto = permisoRepository.findByNombre("eliminar_producto");
 
             if (superUsuario.isPresent() && vendedor.isPresent() && cliente.isPresent()
                     && crearEmpresa.isPresent() && verEmpresa.isPresent()
@@ -337,6 +358,26 @@ public class DatabaseSeeder implements CommandLineRunner {
                 rp4.setRol(superUsuario.get());
                 rp4.setPermiso(eliminarEmpresa.get());
 
+                RolPermiso rp7 = new RolPermiso();
+                rp7.setFechaAsignacion(fechaAsignacion);
+                rp7.setRol(superUsuario.get());
+                rp7.setPermiso(crearProducto.get());
+
+                RolPermiso rp8 = new RolPermiso();
+                rp8.setFechaAsignacion(fechaAsignacion);
+                rp8.setRol(superUsuario.get());
+                rp8.setPermiso(verProducto.get());
+
+                RolPermiso rp9 = new RolPermiso();
+                rp9.setFechaAsignacion(fechaAsignacion);
+                rp9.setRol(superUsuario.get());
+                rp9.setPermiso(editarProducto.get());
+
+                RolPermiso rp10 = new RolPermiso();
+                rp10.setFechaAsignacion(fechaAsignacion);
+                rp10.setRol(superUsuario.get());
+                rp10.setPermiso(eliminarProducto.get());
+
                 RolPermiso rp5 = new RolPermiso();
                 rp5.setFechaAsignacion(fechaAsignacion);
                 rp5.setRol(vendedor.get());
@@ -347,7 +388,7 @@ public class DatabaseSeeder implements CommandLineRunner {
                 rp6.setRol(cliente.get());
                 rp6.setPermiso(verEmpresa.get());
 
-                rolPermisoRepository.saveAll(Arrays.asList(rp1, rp2, rp3, rp4, rp5, rp6));
+                rolPermisoRepository.saveAll(Arrays.asList(rp1, rp2, rp3, rp4, rp5, rp6,rp7,rp8,rp9,rp10));
             }
         }
     }
