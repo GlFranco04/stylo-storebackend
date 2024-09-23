@@ -25,6 +25,7 @@ public class EmpresaController {
   private EmpresaService empresaService;
 
   // Obtener todas las empresas
+  @PreAuthorize("hasRole('SuperUsuario') or hasRole('Vendedor')")
   @GetMapping
   public List<Empresa> getAllEmpresas() {
     return empresaService.getAllEmpresas();
