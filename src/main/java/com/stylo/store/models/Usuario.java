@@ -115,6 +115,8 @@ public class Usuario {
     this.estaActivo = estaActivo;
   }
 
+
+
   public Rol getRol(){
     return rol;
   }

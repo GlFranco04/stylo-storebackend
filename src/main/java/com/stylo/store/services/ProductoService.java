@@ -37,5 +37,5 @@ public class ProductoService {
           producto.setEstaActivo(!producto.isEstaActivo());
           productoRepository.save(producto);  // Guardar los cambios
       }
-  }
+    }
 }

@@ -40,7 +40,6 @@ public class JwtRequestFilter extends OncePerRequestFilter {
             jwt = authorizationHeader.substring(7);
             try {
                 correo = jwtUtil.extractUsername(jwt);
-                System.out.println("Correo extraído del token: " + correo);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -55,13 +54,9 @@ public class JwtRequestFilter extends OncePerRequestFilter {
                 UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
                         new UsernamePasswordAuthenticationToken(
                                 userDetails, null, userDetails.getAuthorities());
-    
                 usernamePasswordAuthenticationToken
                         .setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-    
                 SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
-    
-                System.out.println("Usuario autenticado: " + correo);
             }
         }
         chain.doFilter(request, response);

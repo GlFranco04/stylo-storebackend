@@ -1,7 +1,6 @@
 package com.stylo.store.config;
 
 import com.stylo.store.filters.JwtRequestFilter;
-import com.stylo.store.services.UsuarioDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,9 +19,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 @EnableMethodSecurity
 public class SecurityConfig {
-
-    @Autowired
-    private UsuarioDetailsService usuarioDetailsService;
 
     @Autowired
     private JwtRequestFilter jwtRequestFilter;

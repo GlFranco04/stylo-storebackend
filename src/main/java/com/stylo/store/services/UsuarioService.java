@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.stylo.store.models.Producto;
 import com.stylo.store.models.Usuario;
 import com.stylo.store.repositories.UsuarioRepository;
 
@@ -38,6 +39,16 @@ public class UsuarioService {
     // Buscar usuario por correo
     public Optional<Usuario> obtenerUsuarioPorCorreo(String correo) {
         return usuarioRepository.findByCorreo(correo);
+    }
+
+    public void toggleUsuarioStatus(Long id) {
+      Optional<Usuario> UsuarioOptional = usuarioRepository.findById(id);
+      if (UsuarioOptional.isPresent()) {
+          Usuario usuario = UsuarioOptional.get();
+          // Negar el estado actual de 'esta_activo'
+          usuario.setEstaActivo(!usuario.isEstaActivo());
+          usuarioRepository.save(usuario);  // Guardar los cambios
+      }
     }
 
     // Eliminar usuario

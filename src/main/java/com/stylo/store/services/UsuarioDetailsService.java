@@ -5,6 +5,7 @@ import com.stylo.store.models.RolPermiso;
 import com.stylo.store.models.Usuario;
 import com.stylo.store.repositories.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.*;
@@ -21,10 +22,13 @@ public class UsuarioDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String correo) throws UsernameNotFoundException {
         Optional<Usuario> usuarioOptional = usuarioRepository.findByCorreo(correo);
-
         Usuario usuario = usuarioOptional.orElseThrow(() ->
             new UsernameNotFoundException("Usuario no encontrado con correo: " + correo)
         );
+ 
+        if (!usuario.isEstaActivo()) {
+            throw new DisabledException("El usuario no está activo");
+        }
 
         // Construir las autoridades del usuario
         Set<GrantedAuthority> authorities = new HashSet<>();
