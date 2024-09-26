@@ -22,14 +22,12 @@ public class RolPermiso {
   @Column(name = "fechaAsignacion")
   private LocalDate fechaAsignacion;
 
-  // Relacion RolPermiso con Rol n a 1
-  @ManyToOne
+  @ManyToOne()  // O CascadeType.REMOVE si solo quieres eliminar la relación
   @JoinColumn(name = "rol_id")
   @JsonIgnoreProperties("rolPermisos")
   private Rol rol;
-
-  // Relacion RolPermiso con Permiso n a 1
-  @ManyToOne
+  
+  @ManyToOne()
   @JoinColumn(name = "permiso_id")
   @JsonIgnoreProperties("rolPermisos")
   private Permiso permiso;

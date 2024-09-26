@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.stylo.store.models.Rol;
 import com.stylo.store.models.RolPermiso;
 import com.stylo.store.services.RolPermisoService;;
 
@@ -35,6 +36,11 @@ public class RolPermisoController {
     return rolPermisoService.getRolPermisoById(id);
   }
 
+    // Obtener las relaciones entre rol y permiso por ID del rol
+    @GetMapping("/rol/{rolId}")
+    public List<RolPermiso> obtenerRelacionesRolPermisoPorRolId(@PathVariable Long rolId) {
+        return rolPermisoService.obtenerRelacionesRolPermisoPorRolId(rolId);
+    }
   // Crear un nuevo rolPermiso
   @PostMapping
   public RolPermiso createRolPermiso(@RequestBody RolPermiso rolPermiso) {
@@ -53,17 +59,15 @@ public class RolPermisoController {
       return ResponseEntity.notFound().build();
     }
   }
-
-  // Eliminar un rolpermiso existente
+  // Eliminar un rol
   @DeleteMapping("/{id}")
   public ResponseEntity<Void> deleteRolPermiso(@PathVariable Long id){
-    Optional<RolPermiso> rolpermisoOptional = rolPermisoService.getRolPermisoById(id);
-    if(rolpermisoOptional.isPresent()){
+    Optional<RolPermiso> rolPermiso = rolPermisoService.getRolPermisoById(id);
+    if(rolPermiso.isPresent()){
       rolPermisoService.deleteRolPermiso(id);
       return ResponseEntity.noContent().build();
-    }else{
+    } else{
       return ResponseEntity.notFound().build();
     }
   }
-
 }

@@ -15,8 +15,8 @@ public class TallaService {
     private TallaRepository tallaRepository;
 
     // Obtener todas las tallas activas
-    public List<Talla> getAllActiveTallas() {
-        return tallaRepository.findByEstaActivo(true);
+    public List<Talla> getAllTallas() {
+        return tallaRepository.findAll();
     }
 
     // Obtener una talla por ID

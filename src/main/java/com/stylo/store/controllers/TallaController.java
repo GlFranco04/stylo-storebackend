@@ -19,7 +19,7 @@ public class TallaController {
     // Obtener todas las tallas activas
     @GetMapping
     public List<Talla> getAllTallas() {
-        return tallaService.getAllActiveTallas();
+        return tallaService.getAllTallas();
     }
 
     // Obtener una talla por ID

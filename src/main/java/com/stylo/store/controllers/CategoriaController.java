@@ -19,7 +19,7 @@ public class CategoriaController {
     // Obtener todas las categorías
     @GetMapping
     public List<Categoria> getAllCategorias() {
-        return categoriaService.getAllActiveCategorias();
+        return categoriaService.getAllCategorias();
     }
 
     // Obtener una categoría por ID
