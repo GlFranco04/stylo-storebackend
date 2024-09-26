@@ -15,8 +15,8 @@ public class ProductoService {
     private ProductoRepository productoRepository;
   
     // Obtener todos los productos activos
-    public List<Producto> getAllActiveProductos() {
-        return productoRepository.findByEstaActivo(true);
+    public List<Producto> getAllProductos() {
+        return productoRepository.findAll();
     }
 
     // Obtener un producto por ID

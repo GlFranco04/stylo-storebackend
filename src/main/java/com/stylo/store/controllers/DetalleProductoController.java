@@ -43,6 +43,8 @@ public class DetalleProductoController {
             DetalleProducto updatedDetalleProducto = detalleProducto.get();
             updatedDetalleProducto.setColor(detalleProductoDetails.getColor());
             updatedDetalleProducto.setPrecio(detalleProductoDetails.getPrecio());
+            updatedDetalleProducto.setProducto(detalleProductoDetails.getProducto());
+            updatedDetalleProducto.setTalla(detalleProductoDetails.getTalla());
             return ResponseEntity.ok(detalleProductoService.saveDetalleProducto(updatedDetalleProducto));
         } else {
             return ResponseEntity.notFound().build();

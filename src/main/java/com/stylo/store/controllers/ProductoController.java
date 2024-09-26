@@ -21,7 +21,7 @@ public class ProductoController {
     @GetMapping
     @PreAuthorize("hasAuthority('ver_producto')")
     public List<Producto> getAllProductos() {
-        return productoService.getAllActiveProductos();
+        return productoService.getAllProductos();
     }
 
     // Obtener un producto por ID
