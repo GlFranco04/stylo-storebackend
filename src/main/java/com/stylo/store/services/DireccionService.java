@@ -29,6 +29,10 @@ public class DireccionService {
     return direccionRepository.save(direccion);
   }
 
+  public List<Direccion> obtenerDireccionesNoAsignadas() {
+    return direccionRepository.findBySucursalIsNull();
+  }
+
   // Eliminar una dirección
   public void deleteDireccion(Long id) {
     direccionRepository.deleteById(id);

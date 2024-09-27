@@ -26,7 +26,7 @@ public class SucursalController {
   // Obtener todas las sucursales
   @GetMapping
   public List<Sucursal> getAllSucursales(){
-    return sucursalService.getAllActiveSucursales();
+    return sucursalService.getAllSucursales();
   }
 
   // Obtener una sucursal por ID
@@ -50,6 +50,7 @@ public class SucursalController {
       Sucursal updatedSucursal = sucursal.get();
       updatedSucursal.setNombre(sucursalDetails.getNombre());
       updatedSucursal.setEstaActivo(sucursalDetails.isEstaActivo());
+      updatedSucursal.setDireccion(sucursalDetails.getDireccion());
       return ResponseEntity.ok(sucursalService.saveSucursal(updatedSucursal));
     }else{
       return ResponseEntity.notFound().build();

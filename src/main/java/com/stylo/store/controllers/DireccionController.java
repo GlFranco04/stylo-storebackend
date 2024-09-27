@@ -29,6 +29,13 @@ public class DireccionController {
     return direccionService.getAllDirecciones();
   }
 
+  // Endpoint para obtener las direcciones no asignadas
+  @GetMapping("/disponibles")
+  public ResponseEntity<List<Direccion>> obtenerDireccionesDisponibles() {
+      List<Direccion> direccionesDisponibles = direccionService.obtenerDireccionesNoAsignadas();
+      return ResponseEntity.ok(direccionesDisponibles);
+  }
+
   // Obtener una dirección por ID
   @GetMapping("/{id}")
   public ResponseEntity<Direccion> getDireccionById(@PathVariable Long id){

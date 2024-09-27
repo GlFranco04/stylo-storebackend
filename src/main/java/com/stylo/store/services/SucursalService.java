@@ -15,8 +15,8 @@ public class SucursalService {
   private SucursalRepository sucursalRepository;
 
   // Obtener todas las sucursales activas
-  public List<Sucursal> getAllActiveSucursales(){
-    return sucursalRepository.findByEstaActivo(true);
+  public List<Sucursal> getAllSucursales(){
+    return sucursalRepository.findAll();
   }
   // Obtener una sucursal por ID
   public Optional<Sucursal> getSucursalById(Long id){
