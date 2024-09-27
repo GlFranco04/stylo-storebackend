@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.stylo.store.models.Rol;
 import com.stylo.store.models.RolPermiso;
 import com.stylo.store.services.RolPermisoService;;
 

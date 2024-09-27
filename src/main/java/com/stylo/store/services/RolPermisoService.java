@@ -11,7 +11,6 @@ import com.stylo.store.models.Permiso;
 import com.stylo.store.models.RolPermiso;
 import com.stylo.store.repositories.RolPermisoRepository;
 
-import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
 
 

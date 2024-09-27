@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.stylo.store.models.Producto;
 import com.stylo.store.models.Usuario;
 import com.stylo.store.repositories.UsuarioRepository;
 
