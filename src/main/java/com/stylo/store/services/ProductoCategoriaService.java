@@ -19,6 +19,10 @@ public class ProductoCategoriaService {
         return productoCategoriaRepository.findAll();
     }
 
+    public List<ProductoCategoria> obtenerCategoriasPorProducto(Long productoId) {
+        return productoCategoriaRepository.findByProductoId(productoId);
+    }
+
     // Obtener una relación producto-categoría por ID
     public Optional<ProductoCategoria> getProductoCategoriaById(Long id) {
         return productoCategoriaRepository.findById(id);

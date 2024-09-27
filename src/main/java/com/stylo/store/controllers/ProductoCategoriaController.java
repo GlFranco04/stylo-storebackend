@@ -23,6 +23,12 @@ public class ProductoCategoriaController {
         return productoCategoriaService.getAllProductoCategorias();
     }
 
+    // Obtener todas las categorías de un producto específico
+    @GetMapping("/producto/{productoId}")
+    public ResponseEntity<List<ProductoCategoria>> obtenerCategoriasPorProducto(@PathVariable Long productoId) {
+        return ResponseEntity.ok(productoCategoriaService.obtenerCategoriasPorProducto(productoId));
+    }
+
     // Obtener una relación producto-categoría por ID
     @GetMapping("/{id}")
     public ResponseEntity<ProductoCategoria> getProductoCategoriaById(@PathVariable Long id) {
