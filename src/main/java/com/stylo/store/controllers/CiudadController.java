@@ -41,6 +41,14 @@ public class CiudadController {
   public Ciudad createCiudad(@RequestBody Ciudad ciudad) {
     return ciudadService.saveCiudad(ciudad);
   }
+
+  // Endpoint para obtener ciudades por el ID del país
+  @GetMapping("/pais/{paisId}")
+  public ResponseEntity<List<Ciudad>> obtenerCiudadesPorPais(@PathVariable Long paisId) {
+    List<Ciudad> ciudades = ciudadService.obtenerCiudadesPorPais(paisId);
+    return ResponseEntity.ok(ciudades);
+  }
+  
   // Actualizar una ciudad existente
   @PutMapping("/{id}")
   public ResponseEntity<Ciudad> updateCiudad(@PathVariable Long id, @RequestBody Ciudad ciudadDetails) {

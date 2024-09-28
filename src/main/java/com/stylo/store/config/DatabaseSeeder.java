@@ -55,9 +55,6 @@ public class DatabaseSeeder implements CommandLineRunner {
     private UsuarioRepository usuarioRepository;
 
     @Autowired
-    private UsuarioDireccionRepository usuarioDireccionRepository;
-
-    @Autowired
     private SucursalRepository sucursalRepository;
 
     @Autowired
@@ -81,12 +78,11 @@ public class DatabaseSeeder implements CommandLineRunner {
         seedProductoCategorias();
         seedPaises();
         seedCiudades();
-        seedDirecciones();
         seedPermisos();
         seedRoles();
         seedRolPermisos();
         seedUsuarios();
-        seedUsuarioDirecciones();
+        seedDirecciones();
         seedEmpresas();
         seedSucursales();
         seedAlmacenes();
@@ -233,31 +229,51 @@ public class DatabaseSeeder implements CommandLineRunner {
         if (direccionRepository.count() == 0) {
             Optional<Ciudad> ciudad1 = ciudadRepository.findByNombre("Santa Cruz");
             Optional<Ciudad> ciudad2 = ciudadRepository.findByNombre("Cochabamba");
+            Optional<Usuario> usuario1 = usuarioRepository.findByCorreo("cliente1@gmail.com");
+            Optional<Usuario> usuario2 = usuarioRepository.findByCorreo("gabrielLopez@gmail.com");
+            Optional<Usuario> usuario3 = usuarioRepository.findByCorreo("jack@gmail.com");
 
             if (ciudad1.isPresent() && ciudad2.isPresent()) {
                 Direccion d1 = new Direccion();
                 d1.setNombre("Trabajo");
-                d1.setUbicacion("Barrio los mangales");
+                d1.setUbicacion("1Barrio los mangales");
                 d1.setEdificio("456");
                 d1.setCiudad(ciudad1.get());
 
                 Direccion d2 = new Direccion();
                 d2.setNombre("Colegio");
-                d2.setUbicacion("Barrio totai");
+                d2.setUbicacion("2Barrio totai");
                 d2.setCiudad(ciudad1.get());
 
                 Direccion d3 = new Direccion();
-                d3.setNombre("Hogar");
-                d3.setUbicacion("Barrio 24 de septiembre");
+                d3.setNombre("Oficina 4");
+                d3.setUbicacion("3Barrio 24 de septiembre");
                 d3.setEdificio("456");
                 d3.setCiudad(ciudad1.get());
 
                 Direccion d4 = new Direccion();
-                d4.setNombre("Casa");
-                d4.setUbicacion("Barrio los tajibos");
+                d4.setNombre("Oficina 3");
+                d4.setUbicacion("4Barrio los tajibos");
                 d4.setCiudad(ciudad2.get());
 
-                direccionRepository.saveAll(Arrays.asList(d1, d2, d3, d4));
+                Direccion d5 = new Direccion();
+                d5.setNombre("Casa");
+                d5.setUbicacion("5Avenida Paragua");
+                d5.setUsuario(usuario1.get());
+                d5.setCiudad(ciudad2.get());
+
+                Direccion d6 = new Direccion();
+                d6.setNombre("Casa");
+                d6.setUbicacion("6Avenida San Juan");
+                d6.setUsuario(usuario2.get());
+                d6.setCiudad(ciudad2.get());
+
+                Direccion d7 = new Direccion();
+                d7.setNombre("Casa");
+                d7.setUbicacion("7Avenida San Roque");
+                d7.setUsuario(usuario3.get());
+                d7.setCiudad(ciudad2.get());
+                direccionRepository.saveAll(Arrays.asList(d1, d2, d3, d4,d5,d6,d7));
             }
         }
     }
@@ -427,46 +443,25 @@ public class DatabaseSeeder implements CommandLineRunner {
                 u3.setEstaActivo(true);
                 u3.setRol(cliente.get());
 
-                usuarioRepository.saveAll(Arrays.asList(u1, u2, u3));
-            }
-        }
-    }
+                Usuario u4 = new Usuario();
+                u4.setCorreo("gabrielLopez@gmail.com");
+                u4.setContrasena(passwordEncoder.encode("Cliente1pass"));
+                u4.setNombre("Gabriel");
+                u4.setApellido("López");
+                u4.setSexo('M');
+                u4.setEstaActivo(true);
+                u4.setRol(cliente.get());
 
-    private void seedUsuarioDirecciones() {
-        if (usuarioDireccionRepository.count() == 0) {
-            Optional<Usuario> u1 = usuarioRepository.findByCorreo("cliente1@gmail.com");
-            Optional<Usuario> u2 = usuarioRepository.findByCorreo("vendedor1@gmail.com");
-            Optional<Usuario> u3 = usuarioRepository.findByCorreo("superusuario1@gmail.com");
+                Usuario u5 = new Usuario();
+                u5.setCorreo("jack@gmail.com");
+                u5.setContrasena(passwordEncoder.encode("Cliente1pass"));
+                u5.setNombre("Jack");
+                u5.setApellido("López");
+                u5.setSexo('M');
+                u5.setEstaActivo(true);
+                u5.setRol(cliente.get());
 
-            Optional<Direccion> d1 = direccionRepository.findByNombre("Trabajo");
-            Optional<Direccion> d2 = direccionRepository.findByNombre("Colegio");
-            Optional<Direccion> d3 = direccionRepository.findByNombre("Hogar");
-            Optional<Direccion> d4 = direccionRepository.findByNombre("Casa");
-
-            if (u1.isPresent() && u2.isPresent() && u3.isPresent()
-                    && d1.isPresent() && d2.isPresent() && d3.isPresent() && d4.isPresent()) {
-
-                UsuarioDireccion ud1 = new UsuarioDireccion();
-                ud1.setFechaCreacion(LocalDate.of(2024, 9, 19));
-                ud1.setUsuario(u1.get());
-                ud1.setDireccion(d1.get());
-
-                UsuarioDireccion ud2 = new UsuarioDireccion();
-                ud2.setFechaCreacion(LocalDate.of(2024, 9, 19));
-                ud2.setUsuario(u1.get());
-                ud2.setDireccion(d2.get());
-
-                UsuarioDireccion ud3 = new UsuarioDireccion();
-                ud3.setFechaCreacion(LocalDate.of(2024, 9, 30));
-                ud3.setUsuario(u2.get());
-                ud3.setDireccion(d3.get());
-
-                UsuarioDireccion ud4 = new UsuarioDireccion();
-                ud4.setFechaCreacion(LocalDate.of(2024, 10, 10));
-                ud4.setUsuario(u3.get());
-                ud4.setDireccion(d4.get());
-
-                usuarioDireccionRepository.saveAll(Arrays.asList(ud1, ud2, ud3, ud4));
+                usuarioRepository.saveAll(Arrays.asList(u1, u2, u3, u4, u5));
             }
         }
     }

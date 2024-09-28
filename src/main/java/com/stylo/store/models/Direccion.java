@@ -1,7 +1,5 @@
 package com.stylo.store.models;
 
-import java.util.Set;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -14,7 +12,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
@@ -42,16 +39,17 @@ public class Direccion{
   @JsonIgnore
   private Sucursal sucursal;
 
+  // Relacion Direccion con Usuario n a 1
+  @ManyToOne
+  @JoinColumn(name = "usuario_id")
+  @JsonIgnoreProperties("direcciones")
+  private Usuario usuario;
+
   // Relacion Direccion con Ciudad n a 1
   @ManyToOne
   @JoinColumn(name = "ciudad_id")
-  @JsonIgnoreProperties({"direccionespais","pais"})
+  @JsonIgnoreProperties({"direccionespais"})
   private Ciudad ciudad;
-
-  // Relacion Direccion con UsuarioDireccion 1 a n
-  @OneToMany(mappedBy = "direccion", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-  @JsonIgnore
-  private Set<UsuarioDireccion> usuarioDirecciones;
 
   // Constructor con parámetros
   public Direccion(String nombre, String ubicacion, String edificio) {
@@ -109,12 +107,11 @@ public class Direccion{
     this.ciudad = ciudad;
   }
 
-  public Set<UsuarioDireccion> getUsuarioDirecciones(){
-    return usuarioDirecciones;
+  public Usuario getUsuario() {
+    return usuario;
   }
   
-  public void setUsuarioDirecciones(Set<UsuarioDireccion> usuarioDirecciones){
-    this.usuarioDirecciones = usuarioDirecciones;
+  public void setUsuario(Usuario usuario) {
+    this.usuario = usuario;
   }
-
 }

@@ -47,10 +47,10 @@ public class Usuario {
   @JsonIgnoreProperties("usuarios")
   private Rol rol;
 
-  // Relacion Usuario con UsuarioDireccion 1 a n
-  @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+  // Relacion Usuario con Direccion 1 a n
+  @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   @JsonIgnore
-  private Set<UsuarioDireccion> usuarioDirecciones;
+  private Set<Direccion> direcciones;
 
   // Relacion Usuario con UsuarioDireccion 1 a n
   @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -62,12 +62,13 @@ public class Usuario {
   }
 
   // Constructor con parámetros
-  public Usuario(String correo, String contrasena, String nombre, String apellido, char sexo) {
+  public Usuario(String correo, String contrasena, String nombre, String apellido, char sexo, boolean esta_activo) {
     this.correo = correo;
     this.contrasena = contrasena;
     this.nombre = nombre;
     this.apellido = apellido;
     this.sexo = sexo;
+    this.estaActivo = esta_activo;
   }
   // Getters y Setters
   public Long getId() {
@@ -115,8 +116,6 @@ public class Usuario {
     this.estaActivo = estaActivo;
   }
 
-
-
   public Rol getRol(){
     return rol;
   }
@@ -124,18 +123,18 @@ public class Usuario {
     this.rol = rol;
   }
 
-  public Set<UsuarioDireccion> getUsuarioDirecciones(){
-    return usuarioDirecciones;
-  }
-  public void setUsuarioDirecciones(Set<UsuarioDireccion> usuarioDirecciones){
-    this.usuarioDirecciones = usuarioDirecciones;
-  }
-
   public Set<UsuarioSucursal> getUsuarioSucursales(){
     return usuarioSucursales;
   }
   public void setUsuarioSucursales(Set<UsuarioSucursal> usuarioSucursales){
     this.usuarioSucursales = usuarioSucursales;
+  }
+
+  public Set<Direccion> getDirecciones(){
+    return direcciones;
+  }
+  public void setDirecciones(Set<Direccion> direcciones){
+    this.direcciones = direcciones;
   }
 
 }

@@ -30,7 +30,7 @@ public class DireccionService {
   }
 
   public List<Direccion> obtenerDireccionesNoAsignadas() {
-    return direccionRepository.findBySucursalIsNull();
+    return direccionRepository.findBySucursalIsNullAndUsuarioIsNull();
   }
 
   // Eliminar una dirección

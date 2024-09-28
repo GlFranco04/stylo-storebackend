@@ -58,6 +58,7 @@ public class DireccionController {
       updatedDireccion.setNombre(direccionDetails.getNombre());
       updatedDireccion.setUbicacion(direccionDetails.getUbicacion());
       updatedDireccion.setEdificio(direccionDetails.getEdificio());
+      updatedDireccion.setCiudad(direccionDetails.getCiudad());
       return ResponseEntity.ok(direccionService.saveDireccion(updatedDireccion));
     } else {
       return ResponseEntity.notFound().build();

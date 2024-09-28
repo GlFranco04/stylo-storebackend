@@ -12,5 +12,5 @@ import com.stylo.store.models.Direccion;
 public interface DireccionRepository extends JpaRepository<Direccion,Long>{
   // Metodos personalizados si se necesitan
   Optional<Direccion> findByNombre(String nombre);
-  List<Direccion> findBySucursalIsNull();
+  List<Direccion> findBySucursalIsNullAndUsuarioIsNull();
 }

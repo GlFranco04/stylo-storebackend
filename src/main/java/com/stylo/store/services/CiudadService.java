@@ -24,6 +24,11 @@ public class CiudadService {
     return ciudadRepository.findById(id);
   }
 
+  // Método para obtener las ciudades por el ID del país
+  public List<Ciudad> obtenerCiudadesPorPais(Long paisId) {
+    return ciudadRepository.findByPaisId(paisId);
+  }
+
   // Guardar o actualizar una ciudad
   public Ciudad saveCiudad(Ciudad ciudad) {
     return ciudadRepository.save(ciudad);
