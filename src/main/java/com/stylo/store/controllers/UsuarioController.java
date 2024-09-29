@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.stylo.store.models.Usuario;
 import com.stylo.store.services.UsuarioService;
+import org.springframework.security.core.Authentication;
+
 
 @RestController
 @RequestMapping("/api/usuario")
@@ -31,6 +34,21 @@ public class UsuarioController {
         return usuarioService.getUsuarios();
     }
 
+    // Obtener el perfil del usuario autenticado
+    @GetMapping("/perfil")
+    public ResponseEntity<Usuario> obtenerPerfil(Authentication authentication) {
+        String email = authentication.getName(); // Extrae el email del token JWT automáticamente
+        Optional<Usuario> usuarioOpt = usuarioService.obtenerUsuarioPorCorreo(email);
+        
+        if (usuarioOpt.isPresent()) {
+            Usuario usuario = usuarioOpt.get();
+            usuario.setContrasena(null); // Ocultar la contraseña antes de devolver la respuesta
+            return ResponseEntity.ok(usuario);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+    }
+
     // Obtener un usuario por ID
     @GetMapping("/{id}")
     public ResponseEntity<Usuario> obtenerUsuarioPorId(@PathVariable Long id) {
@@ -43,7 +61,6 @@ public class UsuarioController {
     public Usuario crearUsuario(@RequestBody Usuario usuario) {
         return usuarioService.saveUsuario(usuario);
     }
-
     // Actualizar usuario
     @PutMapping("/{id}")
     public ResponseEntity<Usuario> actualizarUsuario(@PathVariable Long id, @RequestBody Usuario usuario) {
@@ -53,7 +70,6 @@ public class UsuarioController {
           usuarioActualizado.setNombre(usuario.getNombre());
           usuarioActualizado.setApellido(usuario.getApellido());
           usuarioActualizado.setCorreo(usuario.getCorreo());
-          usuarioActualizado.setContrasena(usuario.getContrasena());
           usuarioActualizado.setSexo(usuario.getSexo());
           usuarioActualizado.setRol(usuario.getRol());
           return ResponseEntity.ok(usuarioService.saveUsuario(usuarioActualizado));

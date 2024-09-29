@@ -57,6 +57,11 @@ public class Usuario {
   @JsonIgnore
   private Set<UsuarioSucursal> usuarioSucursales;
 
+  // Relacion Usuario con NotaVenta 1 a n
+  @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  @JsonIgnore
+  private Set<NotaVenta> notasVentas;
+
   // Constructor por defecto
   public Usuario() {
   }
@@ -135,6 +140,14 @@ public class Usuario {
   }
   public void setDirecciones(Set<Direccion> direcciones){
     this.direcciones = direcciones;
+  }
+
+  public Set<NotaVenta> getNotasVentas(){
+    return notasVentas;
+  }
+
+  public void setNotasVentas(Set<NotaVenta> notasVentas){
+    this.notasVentas = notasVentas;
   }
 
 }

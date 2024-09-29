@@ -31,10 +31,10 @@ public class Sucursal {
   @Column(name = "esta_activo")
   private boolean estaActivo;
 
-  // Relacion Sucursal con Almacen 1 a n
+  // Relacion Sucursal con Inventario 1 a n
   @OneToMany(mappedBy = "sucursal", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   @JsonIgnore
-  private Set<Almacen> almacenes;
+  private Set<Inventario> inventarios;
 
   // Relacion Sucursal con Empresa n a 1
   @ManyToOne
@@ -52,6 +52,11 @@ public class Sucursal {
   @OneToMany(mappedBy = "sucursal", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   @JsonIgnore
   private Set<UsuarioSucursal> usuarioSucursales;
+
+  // Relacion Sucursal con NotaVenta 1 a n
+  @OneToMany(mappedBy = "sucursal", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  @JsonIgnore
+  private Set<NotaVenta> notasVentas;
 
   //Contructor por defecto
   public Sucursal() {}
@@ -81,11 +86,11 @@ public class Sucursal {
     this.estaActivo = estaActivo;
   }
 
-  public Set<Almacen> getAlmacenes(){
-    return almacenes;
+  public Set<Inventario> getInventarios(){
+    return inventarios;
   }
-  public void setAlmacenes(Set<Almacen> almacenes){
-    this.almacenes = almacenes;
+  public void setInventarios(Set<Inventario> inventarios){
+    this.inventarios = inventarios;
   }
 
   public Empresa getEmpresa() {
@@ -109,6 +114,14 @@ public class Sucursal {
 
   public void setUsuarioSucursales(Set<UsuarioSucursal> usuarioSucursales) {
     this.usuarioSucursales = usuarioSucursales;
+  }
+
+  public Set<NotaVenta> getNotasVentas() {
+    return notasVentas;
+  }
+
+  public void setNotasVentas(Set<NotaVenta> notasVentas) {
+    this.notasVentas = notasVentas;
   }
 
 }

@@ -47,6 +47,16 @@ public class DetalleProducto {
     @JsonIgnore
     private Set<Inventario> inventarios;
 
+    // Relacion DetalleProducto con ArchivoProducto 1 a n
+    @OneToMany(mappedBy = "detalleProducto", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore
+    private Set<ArchivoProducto> archivosProductos;
+
+    // Relacion DetalleProducto con DetalleVenta 1 a n
+    @OneToMany(mappedBy = "detalleProducto", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore
+    private Set<DetalleVenta> detalleVentas;
+
     // Getters y Setters
     public Long getId() {
         return id;
@@ -96,4 +106,19 @@ public class DetalleProducto {
         this.inventarios = inventarios;
     }
 
+    public Set<ArchivoProducto> getArchivosProductos() {
+        return archivosProductos;
+    }
+    
+    public void setArchivosProductos(Set<ArchivoProducto> archivosProductos) {
+        this.archivosProductos = archivosProductos;
+    }
+
+    public Set<DetalleVenta> getDetalleVentas() {
+        return detalleVentas;
+    }
+    
+    public void setDetalleVentas(Set<DetalleVenta> detalleVentas) {
+        this.detalleVentas = detalleVentas;
+    }
 }

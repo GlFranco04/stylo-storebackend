@@ -58,9 +58,6 @@ public class DatabaseSeeder implements CommandLineRunner {
     private SucursalRepository sucursalRepository;
 
     @Autowired
-    private AlmacenRepository almacenRepository;
-
-    @Autowired
     private InventarioRepository inventarioRepository;
 
     @Autowired
@@ -85,7 +82,6 @@ public class DatabaseSeeder implements CommandLineRunner {
         seedDirecciones();
         seedEmpresas();
         seedSucursales();
-        seedAlmacenes();
         seedInventarios();
         seedUsuarioSucursales();
     }
@@ -516,50 +512,28 @@ public class DatabaseSeeder implements CommandLineRunner {
         }
     }
 
-    private void seedAlmacenes() {
-        if (almacenRepository.count() == 0) {
-            List<Sucursal> sucursales = sucursalRepository.findAll();
-
-            if (!sucursales.isEmpty()) {
-                Almacen a1 = new Almacen();
-                a1.setNombre("Almacen 1");
-                a1.setSucursal(sucursales.get(0));
-
-                Almacen a2 = new Almacen();
-                a2.setNombre("Almacen 2");
-                a2.setSucursal(sucursales.get(0));
-
-                Almacen a3 = new Almacen();
-                a3.setNombre("Almacen 3");
-                a3.setSucursal(sucursales.get(1));
-
-                almacenRepository.saveAll(Arrays.asList(a1, a2, a3));
-            }
-        }
-    }
-
     private void seedInventarios() {
         if (inventarioRepository.count() == 0) {
-            Optional<Almacen> almacen1 = almacenRepository.findByNombre("Almacen 1");
-            Optional<Almacen> almacen2 = almacenRepository.findByNombre("Almacen 2");
+            Optional<Sucursal> sucursal1 = sucursalRepository.findByNombre("Sucursal 1");
+            Optional<Sucursal> sucursal2 = sucursalRepository.findByNombre("Sucursal 2");
 
             Optional<DetalleProducto> dp1 = detalleProductoRepository.findByColor("Azul");
             Optional<DetalleProducto> dp2 = detalleProductoRepository.findByColor("Rojo");
 
-            if (almacen1.isPresent() && almacen2.isPresent() && dp1.isPresent() && dp2.isPresent()) {
+            if (sucursal1.isPresent() && sucursal2.isPresent() && dp1.isPresent() && dp2.isPresent()) {
                 Inventario i1 = new Inventario();
                 i1.setInventarioDisponible((long) 20);
-                i1.setAlmacen(almacen1.get());
+                i1.setSucursal(sucursal1.get());
                 i1.setDetalleProducto(dp1.get());
 
                 Inventario i2 = new Inventario();
                 i2.setInventarioDisponible((long) 50);
-                i2.setAlmacen(almacen2.get());
+                i2.setSucursal(sucursal2.get());
                 i2.setDetalleProducto(dp1.get());
 
                 Inventario i3 = new Inventario();
                 i3.setInventarioDisponible((long) 10);
-                i3.setAlmacen(almacen1.get());
+                i3.setSucursal(sucursal1.get());
                 i3.setDetalleProducto(dp2.get());
 
                 inventarioRepository.saveAll(Arrays.asList(i1, i2, i3));

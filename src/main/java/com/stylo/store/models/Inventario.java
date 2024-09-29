@@ -21,16 +21,16 @@ public class Inventario {
   @Column(name = "inventario_disponible")
   private Long inventarioDisponible;
 
-  // Relacion Inventario con Almacen n a 1
+  // Relacion Inventario con Sucursal n a 1
   @ManyToOne
-  @JoinColumn(name = "almacen_id")
-  @JsonIgnoreProperties({"inventarios","sucursal"})
-  private Almacen almacen;
+  @JoinColumn(name = "sucursal_id")
+  @JsonIgnoreProperties({"inventarios","direccion","empresa"})
+  private Sucursal sucursal;
 
   // Relacion Inventario con DetalleProducto n a 1
   @ManyToOne
   @JoinColumn(name = "detalle_producto_id")
-  @JsonIgnoreProperties({"inventario","producto","talla"})
+  @JsonIgnoreProperties({"inventario"})
   private DetalleProducto detalleProducto;
 
   // getters and setters
@@ -48,12 +48,12 @@ public class Inventario {
     this.inventarioDisponible = inventarioDisponible;
   }
 
-  public Almacen getAlmacen(){
-    return almacen;
+  public Sucursal getSucursal(){
+    return sucursal;
   }
 
-  public void setAlmacen(Almacen almacen){
-    this.almacen = almacen;
+  public void setSucursal(Sucursal sucursal){
+    this.sucursal = sucursal;
   }
 
   public DetalleProducto getDetalleProducto(){
