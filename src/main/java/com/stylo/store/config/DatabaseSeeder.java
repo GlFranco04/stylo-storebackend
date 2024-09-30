@@ -4,7 +4,9 @@ import com.stylo.store.models.*;
 import com.stylo.store.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.event.EventListener;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.LocalDate;
@@ -70,6 +72,7 @@ public class DatabaseSeeder implements CommandLineRunner {
     private PasswordEncoder passwordEncoder;
 
     @Override
+    @EventListener(ApplicationReadyEvent.class)
     public void run(String... args) throws Exception {
         seedCategorias();
         seedProveedores();
