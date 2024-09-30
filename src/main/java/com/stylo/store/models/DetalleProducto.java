@@ -28,7 +28,8 @@ public class DetalleProducto {
     private Long id;
 
     private String color;
-    private double precio;
+    private double precioCompra;
+    private double precioVenta;
 
     // Relación ManyToOne con Producto, ignoramos la lista de DetalleProducto en Producto para evitar ciclo
     @ManyToOne
@@ -74,12 +75,20 @@ public class DetalleProducto {
         this.color = color;
     }
 
-    public double getPrecio() {
-        return precio;
+    public double getPrecioCompra() {
+        return precioCompra;
     }
 
-    public void setPrecio(double precio) {
-        this.precio = precio;
+    public void setPrecioCompra(double precioCompra) {
+        this.precioCompra = precioCompra;
+    }
+
+    public double getPrecioVenta() {
+        return precioVenta;
+    }
+
+    public void setPrecioVenta(double precioVenta) {
+        this.precioVenta = precioVenta;
     }
 
     public Producto getProducto() {

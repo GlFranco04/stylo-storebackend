@@ -46,6 +46,9 @@ public class DatabaseSeeder implements CommandLineRunner {
     private PermisoRepository permisoRepository;
 
     @Autowired
+    private ProveedorRepository proveedorRepository;
+
+    @Autowired
     private RolRepository rolRepository;
 
     @Autowired
@@ -69,6 +72,7 @@ public class DatabaseSeeder implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         seedCategorias();
+        seedProveedores();
         seedProductos();
         seedTallas();
         seedDetalleProductos();
@@ -102,19 +106,35 @@ public class DatabaseSeeder implements CommandLineRunner {
         }
     }
 
+    private void  seedProveedores(){
+        if (proveedorRepository.count() == 0) {
+            Proveedor p1 = new Proveedor();
+            p1.setNombre("Estilo Moda");
+
+            Proveedor p2 = new Proveedor();
+            p2.setNombre("Estilo Moda 2");
+
+            proveedorRepository.saveAll(Arrays.asList(p1, p2));
+        }
+    }
+
     private void seedProductos() {
         if (productoRepository.count() == 0) {
+            Optional<Proveedor> proveedor1 = proveedorRepository.findByNombre("Estilo Moda"); 
+            Optional<Proveedor> proveedor2 = proveedorRepository.findByNombre("Estilo Moda 2"); 
             Producto p1 = new Producto();
             p1.setNombre("Polera de Algodón");
             p1.setDescripcion("Polera cómoda de algodón 100%");
             p1.setFechaCreacion(LocalDate.of(2024, 9, 19));
             p1.setEstaActivo(true);
+            p1.setProveedor(proveedor1.get());
 
             Producto p2 = new Producto();
             p2.setNombre("Falda de Algodón");
             p2.setDescripcion("Falda cómoda de algodón 100%");
             p2.setFechaCreacion(LocalDate.of(2024, 9, 19));
             p2.setEstaActivo(true);
+            p2.setProveedor(proveedor2.get());
 
             productoRepository.saveAll(Arrays.asList(p1, p2));
         }
@@ -147,13 +167,15 @@ public class DatabaseSeeder implements CommandLineRunner {
             if (producto1.isPresent() && tallaS.isPresent()) {
                 DetalleProducto dp1 = new DetalleProducto();
                 dp1.setColor("Azul");
-                dp1.setPrecio(30.99);
+                dp1.setPrecioCompra(30.50);
+                dp1.setPrecioVenta(59.99);
                 dp1.setProducto(producto1.get());
                 dp1.setTalla(tallaS.get());
 
                 DetalleProducto dp2 = new DetalleProducto();
                 dp2.setColor("Rojo");
-                dp2.setPrecio(49.99);
+                dp2.setPrecioCompra(30.50);
+                dp2.setPrecioVenta(65.00);
                 dp2.setProducto(producto1.get());
                 dp2.setTalla(tallaS.get());
 

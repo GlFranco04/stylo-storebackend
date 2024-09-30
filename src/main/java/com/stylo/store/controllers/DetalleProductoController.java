@@ -42,7 +42,8 @@ public class DetalleProductoController {
         if (detalleProducto.isPresent()) {
             DetalleProducto updatedDetalleProducto = detalleProducto.get();
             updatedDetalleProducto.setColor(detalleProductoDetails.getColor());
-            updatedDetalleProducto.setPrecio(detalleProductoDetails.getPrecio());
+            updatedDetalleProducto.setPrecioCompra(detalleProductoDetails.getPrecioCompra());
+            updatedDetalleProducto.setPrecioVenta(detalleProductoDetails.getPrecioVenta());
             updatedDetalleProducto.setProducto(detalleProductoDetails.getProducto());
             updatedDetalleProducto.setTalla(detalleProductoDetails.getTalla());
             return ResponseEntity.ok(detalleProductoService.saveDetalleProducto(updatedDetalleProducto));

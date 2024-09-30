@@ -3,6 +3,7 @@ package com.stylo.store.models;
 import java.time.LocalDate;
 import java.util.Set;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -11,6 +12,8 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
@@ -43,6 +46,12 @@ public class Producto {
     @OneToMany(mappedBy = "producto", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonIgnore // Esto también evita que se serialicen las categorías del producto
     private Set<ProductoCategoria> productoCategorias;
+
+    // Relacion Producto con Proveedor 1 a n
+    @ManyToOne
+    @JoinColumn(name = "proveedor_id")
+    @JsonIgnoreProperties("productos")
+    private Proveedor proveedor;
 
     // Constructor por defecto
     public Producto() {
@@ -111,5 +120,12 @@ public class Producto {
 
     public void setProductoCategorias(Set<ProductoCategoria> productoCategorias) {
         this.productoCategorias = productoCategorias;
+    }
+
+    public Proveedor getProveedor(){
+        return proveedor;
+    }
+    public void setProveedor(Proveedor proveedor){
+        this.proveedor = proveedor;
     }
 }
