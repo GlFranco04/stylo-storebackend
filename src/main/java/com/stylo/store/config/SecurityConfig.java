@@ -36,7 +36,7 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.cors().and().csrf().disable()
+        http.csrf().disable()
             .authorizeHttpRequests()
                 .requestMatchers(org.springframework.http.HttpMethod.OPTIONS, "/**").permitAll()  // Permitir todas las solicitudes OPTIONS sin autenticación
                 .requestMatchers("/authenticate").permitAll()  // Permitir acceso sin autenticación a /authenticate
