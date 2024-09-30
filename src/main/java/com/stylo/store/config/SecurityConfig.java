@@ -36,18 +36,19 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.csrf().disable()
+        http
+            .cors()  // Enable CORS
+            .and()
+            .csrf().disable()
             .authorizeHttpRequests()
-                .requestMatchers(org.springframework.http.HttpMethod.OPTIONS, "/**").permitAll()  // Permitir todas las solicitudes OPTIONS sin autenticación
-                .requestMatchers("/authenticate").permitAll()  // Permitir acceso sin autenticación a /authenticate
-                .requestMatchers("/api/seeder").permitAll()  // Permitir acceso sin autenticación a /authenticate
-                .anyRequest().authenticated()  // Requerir autenticación para todos los demás endpoints
+                .requestMatchers(org.springframework.http.HttpMethod.OPTIONS, "/**").permitAll()
+                .requestMatchers("/authenticate").permitAll()
+                .requestMatchers("/api/seeder").permitAll()
+                .anyRequest().authenticated()
             .and()
             .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-
         http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
-
         return http.build();
     }
 }
