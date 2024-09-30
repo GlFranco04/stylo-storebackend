@@ -1,5 +1,5 @@
 # Paso 1: Usar una imagen base oficial de Maven para construir el JAR
-FROM maven:3.8.6-openjdk-17 AS build
+FROM maven:3.8.8-eclipse-temurin-17 AS build
 WORKDIR /app
 
 # Paso 2: Copiar todo el código fuente al contenedor
