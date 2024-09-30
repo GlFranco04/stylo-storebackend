@@ -15,9 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.stylo.store.models.DetalleCompra;
-import com.stylo.store.models.DetalleVenta;
 import com.stylo.store.services.DetalleCompraService;
-import com.stylo.store.services.DetalleVentaService;
 
 @RestController
 @RequestMapping("/api/detalle-compra")

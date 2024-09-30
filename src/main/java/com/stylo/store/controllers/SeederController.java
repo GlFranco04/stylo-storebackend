@@ -3,7 +3,6 @@ package com.stylo.store.controllers;
 import com.stylo.store.models.*;
 import com.stylo.store.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
