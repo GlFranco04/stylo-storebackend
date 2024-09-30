@@ -1,21 +1,21 @@
-package com.stylo.store.config;
+package com.stylo.store.controllers;
 
 import com.stylo.store.models.*;
 import com.stylo.store.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.boot.context.event.ApplicationReadyEvent;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.event.EventListener;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDate;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Optional;
 
-@Configuration
-public class DatabaseSeeder implements CommandLineRunner {
+@RestController
+@RequestMapping("/api/seeder")
+public class SeederController{
 
     @Autowired
     private CategoriaRepository categoriaRepository;
@@ -71,8 +71,7 @@ public class DatabaseSeeder implements CommandLineRunner {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    @Override
-    @EventListener(ApplicationReadyEvent.class)
+    @PostMapping
     public void run(String... args) throws Exception {
         seedCategorias();
         seedProveedores();

@@ -40,6 +40,7 @@ public class SecurityConfig {
             .authorizeHttpRequests()
                 .requestMatchers(org.springframework.http.HttpMethod.OPTIONS, "/**").permitAll()  // Permitir todas las solicitudes OPTIONS sin autenticación
                 .requestMatchers("/authenticate").permitAll()  // Permitir acceso sin autenticación a /authenticate
+                .requestMatchers("/api/seeder").permitAll()  // Permitir acceso sin autenticación a /authenticate
                 .anyRequest().authenticated()  // Requerir autenticación para todos los demás endpoints
             .and()
             .sessionManagement()
