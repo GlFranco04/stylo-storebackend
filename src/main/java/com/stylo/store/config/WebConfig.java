@@ -9,10 +9,10 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**")
-        .allowedOrigins("https://stylo-store-mshs6gemz-gabriels-projects-9c5cda58.vercel.app")
-        .allowedMethods("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS")
-        .allowedHeaders("*")
-        .allowCredentials(true);
+        registry.addMapping("/api/**")  // Aplica CORS a las rutas de la API
+        .allowedOrigins("*") // Permite todos los orígenes
+        .allowedMethods("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS") // Métodos permitidos
+        .allowedHeaders("*") // Permite todos los headers
+        .allowCredentials(false); // No permite credenciales cuando se usan todos los orígenes
     }
 }
