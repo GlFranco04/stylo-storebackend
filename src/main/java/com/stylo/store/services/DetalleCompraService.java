@@ -47,6 +47,9 @@ public class DetalleCompraService {
         DetalleCompra savedDetalleCompra = detalleCompraRepository.save(detalleCompra);
 
         // Buscar el inventario correspondiente al detalle del producto usando la sucursal de la nota de compra
+        System.out.println("Sucursal ID: " + savedDetalleCompra.getNotaCompra().getSucursal().getId());
+        System.out.println("DetalleProducto ID: " + savedDetalleCompra.getDetalleProducto().getId());
+
         Optional<Inventario> optionalInventario = inventarioService
                 .findInventarioBySucursalAndDetalleProducto(
                         savedDetalleCompra.getNotaCompra().getSucursal(),
