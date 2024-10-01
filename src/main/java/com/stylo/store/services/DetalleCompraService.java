@@ -42,37 +42,40 @@ public class DetalleCompraService {
         if (detalleCompra.getDetalleProducto() == null) {
             throw new IllegalArgumentException("El DetalleProducto no puede ser nulo.");
         }
-
+    
+        // Validar que la NotaCompra tenga una Sucursal asociada
+        if (detalleCompra.getNotaCompra().getSucursal() == null) {
+            throw new IllegalArgumentException("La Sucursal en la NotaCompra no puede ser nula.");
+        }
+    
         // Guardar primero el detalleCompra para asegurar que todos los objetos estén persistidos
         DetalleCompra savedDetalleCompra = detalleCompraRepository.save(detalleCompra);
-
+    
         // Buscar el inventario correspondiente al detalle del producto usando la sucursal de la nota de compra
-        System.out.println("Sucursal ID: " + savedDetalleCompra.getNotaCompra().getSucursal().getId());
-        System.out.println("DetalleProducto ID: " + savedDetalleCompra.getDetalleProducto().getId());
-
         Optional<Inventario> optionalInventario = inventarioService
                 .findInventarioBySucursalAndDetalleProducto(
                         savedDetalleCompra.getNotaCompra().getSucursal(),
                         savedDetalleCompra.getDetalleProducto());
-
+    
         if (optionalInventario.isPresent()) {
             Inventario inventario = optionalInventario.get();
-
+    
             // Restar la cantidad comprada del inventario disponible
             Long nuevaCantidadDisponible = inventario.getInventarioDisponible() - savedDetalleCompra.getCantidad();
             if (nuevaCantidadDisponible < 0) {
                 throw new IllegalArgumentException("Inventario insuficiente para el producto: " + savedDetalleCompra.getDetalleProducto().getId());
             }
             inventario.setInventarioDisponible(nuevaCantidadDisponible);
-
+    
             // Guardar el inventario actualizado
             inventarioService.saveInventario(inventario);
         } else {
             throw new IllegalArgumentException("Inventario no encontrado para el producto: " + savedDetalleCompra.getDetalleProducto().getId());
         }
-
+    
         return savedDetalleCompra;
     }
+    
 
     // Eliminar un detalle de compra
     public void eliminarDetalleCompra(Long id) {
