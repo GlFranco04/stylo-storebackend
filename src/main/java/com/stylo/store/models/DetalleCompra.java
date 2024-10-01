@@ -29,13 +29,13 @@ public class DetalleCompra {
   // Relacion DetalleCompra con NotaCompra n a 1
   @ManyToOne(fetch = FetchType.EAGER)
   @JoinColumn(name = "nota_compra_id")
-  @JsonIgnoreProperties("detalleCompras")
+  @JsonIgnoreProperties({"detalleCompras","sucursal"})
   private NotaCompra notaCompra;
 
   // Relacion DetalleVenta con DetalleProducto n a 1
   @ManyToOne(fetch = FetchType.EAGER)
   @JoinColumn(name = "detalle_producto_id")
-  @JsonIgnoreProperties({"detalleCompras"})
+  @JsonIgnoreProperties({"detalleCompras","producto","talla"})
   private DetalleProducto detalleProducto;
 
   // Constructor por defect
