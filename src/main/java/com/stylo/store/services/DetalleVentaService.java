@@ -31,63 +31,58 @@ public class DetalleVentaService {
         return detalleVentaRepository.findById(id);
     }
 
-    // Crear o actualizar un nuevo detalle de venta
+    @Transactional
     public DetalleVenta saveDetalleVenta(DetalleVenta detalleVenta) {
-        return detalleVentaRepository.save(detalleVenta);
-    }
+        // Validar que NotaCompra y DetalleProducto no sean nulos
+        if (detalleVenta.getNotaVenta() == null || detalleVenta.getNotaVenta().getId() == null) {
+            throw new IllegalArgumentException("La NotaVenta no puede ser nula y debe tener un ID válido.");
+        }
+        if (detalleVenta.getDetalleProducto() == null || detalleVenta.getDetalleProducto().getId() == null) {
+            throw new IllegalArgumentException("El DetalleProducto no puede ser nulo y debe tener un ID válido.");
+        }
 
-@Transactional
-public DetalleVenta saveDetalleCompra(DetalleVenta detalleVenta) {
-    // Validar que NotaCompra y DetalleProducto no sean nulos
-    if (detalleVenta.getNotaVenta() == null || detalleVenta.getNotaVenta().getId() == null) {
-        throw new IllegalArgumentException("La NotaVenta no puede ser nula y debe tener un ID válido.");
-    }
-    if (detalleVenta.getDetalleProducto() == null || detalleVenta.getDetalleProducto().getId() == null) {
-        throw new IllegalArgumentException("El DetalleProducto no puede ser nulo y debe tener un ID válido.");
-    }
+        // Recuperar la NotaCompra desde la base de datos para asegurarse de que todas las relaciones estén cargadas
+        Optional<NotaVenta> optionalNotaVenta = notaVentaService.obtenerNotaVentaPorId(detalleVenta.getNotaVenta().getId());
+        if (!optionalNotaVenta.isPresent()) {
+            throw new IllegalArgumentException("NotaVenta no encontrada con el ID proporcionado: " + detalleVenta.getNotaVenta().getId());
+        }
 
-    // Recuperar la NotaCompra desde la base de datos para asegurarse de que todas las relaciones estén cargadas
-    Optional<NotaVenta> optionalNotaVenta = notaVentaService.obtenerNotaVentaPorId(detalleVenta.getNotaVenta().getId());
-    if (!optionalNotaVenta.isPresent()) {
-        throw new IllegalArgumentException("NotaVenta no encontrada con el ID proporcionado: " + detalleVenta.getNotaVenta().getId());
-    }
+        NotaVenta notaVenta = optionalNotaVenta.get();
+        
+        // Validar que la NotaVenta tenga una Sucursal asociada
+        if (notaVenta.getSucursal() == null) {
+            throw new IllegalArgumentException("La Sucursal en la NotaVenta no puede ser nula.");
+        }
 
-    NotaVenta notaVenta = optionalNotaVenta.get();
-    
-    // Validar que la NotaVenta tenga una Sucursal asociada
-    if (notaVenta.getSucursal() == null) {
-        throw new IllegalArgumentException("La Sucursal en la NotaVenta no puede ser nula.");
-    }
+        // Reasignar la NotaCompra cargada completamente a detalleCompra
+        detalleVenta.setNotaVenta(notaVenta);
 
-    // Reasignar la NotaCompra cargada completamente a detalleCompra
-    detalleVenta.setNotaVenta(notaVenta);
+        // Guardar primero el detalleCompra para asegurar que todos los objetos estén persistidos
+        DetalleVenta savedDetalleVenta = detalleVentaRepository.save(detalleVenta);
 
-    // Guardar primero el detalleCompra para asegurar que todos los objetos estén persistidos
-    DetalleVenta savedDetalleVenta = detalleVentaRepository.save(detalleVenta);
+        // Buscar el inventario correspondiente al detalle del producto usando la sucursal de la nota de compra
+        Optional<Inventario> optionalInventario = inventarioService.findInventarioBySucursalAndDetalleProducto(
+                        savedDetalleVenta.getNotaVenta().getSucursal(),
+                        savedDetalleVenta.getDetalleProducto());
 
-    // Buscar el inventario correspondiente al detalle del producto usando la sucursal de la nota de compra
-    Optional<Inventario> optionalInventario = inventarioService.findInventarioBySucursalAndDetalleProducto(
-                    savedDetalleVenta.getNotaVenta().getSucursal(),
-                    savedDetalleVenta.getDetalleProducto());
+        Inventario inventario;
+        if (optionalInventario.isPresent()) {
+            inventario = optionalInventario.get();
+        } else {
+            throw new IllegalArgumentException("Inventario no existente");
+        }
 
-    Inventario inventario;
-    if (optionalInventario.isPresent()) {
-        inventario = optionalInventario.get();
-    } else {
-        throw new IllegalArgumentException("Inventario no existente");
-    }
+        // Restar la cantidad comprada del inventario disponible
+        Long nuevaCantidadDisponible = inventario.getInventarioDisponible() + savedDetalleVenta.getCantidad();
+        inventario.setInventarioDisponible(nuevaCantidadDisponible);
+        if (nuevaCantidadDisponible < 0 ) {
+            throw new IllegalArgumentException("Inventario insuficiente para el producto: " + savedDetalleVenta.getDetalleProducto().getId());
+        }
+        // Guardar el inventario actualizado
+        inventarioService.saveInventario(inventario);
 
-    // Restar la cantidad comprada del inventario disponible
-    Long nuevaCantidadDisponible = inventario.getInventarioDisponible() + savedDetalleVenta.getCantidad();
-    inventario.setInventarioDisponible(nuevaCantidadDisponible);
-    if (nuevaCantidadDisponible < 0 ) {
-        throw new IllegalArgumentException("Inventario insuficiente para el producto: " + savedDetalleVenta.getDetalleProducto().getId());
-    }
-    // Guardar el inventario actualizado
-    inventarioService.saveInventario(inventario);
-
-    return savedDetalleVenta;
-    }
+        return savedDetalleVenta;
+        }
 
     // Eliminar un detalle de venta
     public void eliminarDetalleVenta(Long id) {
