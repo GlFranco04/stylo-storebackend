@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -22,13 +23,13 @@ public class Inventario {
   private Long inventarioDisponible;
 
   // Relacion Inventario con Sucursal n a 1
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.EAGER)
   @JoinColumn(name = "sucursal_id")
   @JsonIgnoreProperties({"inventarios","direccion","empresa"})
   private Sucursal sucursal;
 
   // Relacion Inventario con DetalleProducto n a 1
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.EAGER)
   @JoinColumn(name = "detalle_producto_id")
   @JsonIgnoreProperties({"inventario"})
   private DetalleProducto detalleProducto;

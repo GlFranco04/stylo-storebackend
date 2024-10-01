@@ -44,17 +44,17 @@ public class DetalleProducto {
     private Talla talla;
 
     // Relacion DetalleProducto con Inventario 1 a n
-    @OneToMany(mappedBy = "detalleProducto", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "detalleProducto", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JsonIgnore
     private Set<Inventario> inventarios;
 
     // Relacion DetalleProducto con ArchivoProducto 1 a n
-    @OneToMany(mappedBy = "detalleProducto", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "detalleProducto", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JsonIgnore
     private Set<ArchivoProducto> archivosProductos;
 
     // Relacion DetalleProducto con DetalleVenta 1 a n
-    @OneToMany(mappedBy = "detalleProducto", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "detalleProducto", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JsonIgnore
     private Set<DetalleVenta> detalleVentas;
 

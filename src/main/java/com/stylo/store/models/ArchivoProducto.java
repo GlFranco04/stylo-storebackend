@@ -3,6 +3,7 @@ package com.stylo.store.models;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -18,13 +19,13 @@ public class ArchivoProducto {
   private Long id;
 
   // Relacion ArchivoProducto con Archivo n a 1
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.EAGER)
   @JoinColumn(name = "archivo_id")
   @JsonIgnoreProperties("archivoProductos")
   private Archivo archivo;
 
   // Relacion ArchivoProducto con DetalleProducto n a 1
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.EAGER)
   @JoinColumn(name = "detalle_producto_id")
   @JsonIgnoreProperties({"archivoProductos","producto","talla"})
   private DetalleProducto detalleProducto;

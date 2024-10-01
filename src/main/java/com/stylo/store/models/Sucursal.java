@@ -32,7 +32,7 @@ public class Sucursal {
   private boolean estaActivo;
 
   // Relacion Sucursal con Inventario 1 a n
-  @OneToMany(mappedBy = "sucursal", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  @OneToMany(mappedBy = "sucursal", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
   @JsonIgnore
   private Set<Inventario> inventarios;
 
@@ -54,7 +54,7 @@ public class Sucursal {
   private Set<UsuarioSucursal> usuarioSucursales;
 
   // Relacion Sucursal con NotaVenta 1 a n
-  @OneToMany(mappedBy = "sucursal", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  @OneToMany(mappedBy = "sucursal", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
   @JsonIgnore
   private Set<NotaVenta> notasVentas;
 

@@ -35,7 +35,7 @@ public class Archivo {
   private LocalDate fechaSubida;
 
   // Relacion Archivo con ArchivoProducto 1 a n
-  @OneToMany(mappedBy = "archivo", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  @OneToMany(mappedBy = "archivo", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
   @JsonIgnore
   private Set<ArchivoProducto> archivoProductos;
 
