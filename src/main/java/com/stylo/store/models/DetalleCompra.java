@@ -27,13 +27,13 @@ public class DetalleCompra {
   private double subtotal;
 
   // Relacion DetalleCompra con NotaCompra n a 1
-  @ManyToOne(fetch = FetchType.EAGER)
+  @ManyToOne
   @JoinColumn(name = "nota_compra_id")
   @JsonIgnoreProperties({"detalleCompras","sucursal"})
   private NotaCompra notaCompra;
 
   // Relacion DetalleVenta con DetalleProducto n a 1
-  @ManyToOne(fetch = FetchType.EAGER)
+  @ManyToOne
   @JoinColumn(name = "detalle_producto_id")
   @JsonIgnoreProperties({"detalleCompras","producto","talla"})
   private DetalleProducto detalleProducto;

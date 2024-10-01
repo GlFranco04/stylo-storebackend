@@ -36,12 +36,12 @@ public class NotaCompra {
   private String estado;
 
   // Relacion NotaCompra con DetalleCompra 1 a n
-  @OneToMany(mappedBy = "notaCompra", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+  @OneToMany(mappedBy = "notaCompra", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   @JsonIgnore
   private Set<DetalleCompra> detalleCompras;
 
   // Relacion NotaCompra con Sucursal n a 1
-  @ManyToOne(fetch = FetchType.EAGER)
+  @ManyToOne
   @JoinColumn(name = "sucursal_id")
   @JsonIgnoreProperties("notasCompras")
   private Sucursal sucursal;
