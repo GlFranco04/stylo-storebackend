@@ -35,6 +35,11 @@ public class DetalleCompraService {
         return detalleCompraRepository.findById(id);
     }
 
+    // Obtener detalles de compra por notaCompraId
+    public List<DetalleCompra> obtenerDetallesCompraPorNotaCompraId(Long notaCompraId) {
+        return detalleCompraRepository.findByNotaCompraId(notaCompraId);
+    }
+
 @Transactional
 public DetalleCompra saveDetalleCompra(DetalleCompra detalleCompra) {
     // Validar que NotaCompra y DetalleProducto no sean nulos

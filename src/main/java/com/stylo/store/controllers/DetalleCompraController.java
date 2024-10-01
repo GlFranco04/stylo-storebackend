@@ -38,6 +38,16 @@ public class DetalleCompraController {
     return detallecompra.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
   }
 
+    // Obtener detalles de compra por notaCompraId
+    @GetMapping("/nota-compra/{notaCompraId}")
+    public ResponseEntity<List<DetalleCompra>> obtenerDetallesCompraPorNotaCompraId(@PathVariable Long notaCompraId) {
+        List<DetalleCompra> detallesCompra = detalleCompraService.obtenerDetallesCompraPorNotaCompraId(notaCompraId);
+        if (detallesCompra.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(detallesCompra);
+    }
+    
   // Crear una nueva nota de venta
   @PostMapping
   public DetalleCompra createNotaCompra(@RequestBody DetalleCompra detallecompra) {
