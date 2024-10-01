@@ -28,13 +28,13 @@ public class DetalleVenta {
   // Relacion DetalleVenta con NotaVenta n a 1
   @ManyToOne
   @JoinColumn(name = "nota_venta_id")
-  @JsonIgnoreProperties("detalleVentas")
+  @JsonIgnoreProperties({"detalleVentas","sucursal"})
   private NotaVenta notaVenta;
 
   // Relacion DetalleVenta con DetalleProducto n a 1
   @ManyToOne
   @JoinColumn(name = "detalle_producto_id")
-  @JsonIgnoreProperties({"detalleVentas"})
+  @JsonIgnoreProperties({"detalleVentas","producto","talla"})
   private DetalleProducto detalleProducto;
 
   // Constructor por defect
