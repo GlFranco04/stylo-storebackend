@@ -170,13 +170,15 @@ public class SeederController{
             if (producto1.isPresent() && tallaS.isPresent()) {
                 DetalleProducto dp1 = new DetalleProducto();
                 dp1.setColor("Azul");
-                dp1.setPrecio(30.50);
+                dp1.setPrecioCompra(30.50);
+                dp1.setPrecioVenta(59.99);
                 dp1.setProducto(producto1.get());
                 dp1.setTalla(tallaS.get());
 
                 DetalleProducto dp2 = new DetalleProducto();
                 dp2.setColor("Rojo");
-                dp2.setPrecio(30.50);
+                dp2.setPrecioCompra(30.50);
+                dp2.setPrecioVenta(65.00);
                 dp2.setProducto(producto1.get());
                 dp2.setTalla(tallaS.get());
 
