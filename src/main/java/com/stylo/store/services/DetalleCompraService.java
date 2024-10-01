@@ -81,7 +81,7 @@ public DetalleCompra saveDetalleCompra(DetalleCompra detalleCompra) {
         inventario.setInventarioDisponible(0L); // O algún valor inicial
     }
 
-    // Restar la cantidad comprada del inventario disponible
+    // Sumar la cantidad comprada del inventario disponible
     Long nuevaCantidadDisponible = inventario.getInventarioDisponible() + savedDetalleCompra.getCantidad();
     inventario.setInventarioDisponible(nuevaCantidadDisponible);
 

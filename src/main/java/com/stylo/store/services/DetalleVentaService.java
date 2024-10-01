@@ -73,7 +73,7 @@ public class DetalleVentaService {
         }
 
         // Restar la cantidad comprada del inventario disponible
-        Long nuevaCantidadDisponible = inventario.getInventarioDisponible() + savedDetalleVenta.getCantidad();
+        Long nuevaCantidadDisponible = inventario.getInventarioDisponible() - savedDetalleVenta.getCantidad();
         inventario.setInventarioDisponible(nuevaCantidadDisponible);
         if (nuevaCantidadDisponible < 0 ) {
             throw new IllegalArgumentException("Inventario insuficiente para el producto: " + savedDetalleVenta.getDetalleProducto().getId());
